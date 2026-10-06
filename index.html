@@ -1,0 +1,2913 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Atelier de Cuisine: Cute Classy Gourmet (Illustrated HD POV ASMR)</title>
+
+  <!-- Google Fonts: Chic Parisian Serif & Cute Rounded Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,600;1,700&family=Quicksand:wght@500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-atelier: #1a0b1c;
+      --blush-baby: #fce7f3;
+      --blush-soft: #fbcfe8;
+      --rose-pastel: #f472b6;
+      --rose-vibrant: #ec4899;
+      --rose-deep: #db2777;
+      --vanilla-cream: #fffdfa;
+      --champagne-gold: #f59e0b;
+      --rosegold-accent: #e0a899;
+      --panel-glass: rgba(32, 12, 30, 0.94);
+      --panel-border: rgba(244, 114, 182, 0.38);
+      --panel-glow: rgba(244, 114, 182, 0.22);
+      --text-pure: #fff5f8;
+      --text-muted: #d8b4d0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+      font-family: 'Quicksand', 'Plus Jakarta Sans', sans-serif;
+    }
+
+    html, body {
+      width: 100vw;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+      overflow: hidden !important;
+      background-color: var(--bg-atelier);
+      color: var(--text-pure);
+      position: relative;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    html::-webkit-scrollbar, body::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* 2D CANVAS VIEWPORT (HIGH DEFINITION POV) */
+    #kitchenPovCanvas {
+      position: absolute;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 5;
+      display: none;
+      cursor: crosshair;
+    }
+    #kitchenPovCanvas.active {
+      display: block;
+    }
+
+    /* 2D AMBIENT SPARKLING ROSE PARTICLES CANVAS FOR OPENING MENU */
+    #ambient2DCanvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* FULLSCREEN 2D OPENING VIEW (100vw x 100vh, NO SCROLLBAR) */
+    #screenOpening2D {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      overflow: hidden;
+      background: 
+        radial-gradient(circle at 50% 12%, rgba(244, 114, 182, 0.22) 0%, transparent 60%),
+        radial-gradient(circle at 85% 85%, rgba(251, 207, 232, 0.16) 0%, transparent 50%),
+        linear-gradient(135deg, #1c0c1e 0%, #0e0410 100%);
+      transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s ease, visibility 0.7s;
+    }
+
+    #screenOpening2D.fade-out {
+      opacity: 0;
+      transform: scale(1.04);
+      pointer-events: none;
+      visibility: hidden;
+    }
+
+    /* CINEMATIC CURTAIN FADE */
+    #curtainTransition {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #140616;
+      z-index: 999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.45s ease;
+    }
+    #curtainTransition.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* OPENING CARD CONTAINER - CHIC PASTEL RECIPE BOOK */
+    .club-card-window {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 880px;
+      max-height: 94vh;
+      background: var(--panel-glass);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1.5px solid var(--panel-border);
+      border-radius: 26px;
+      padding: 22px 28px;
+      box-shadow: 
+        0 25px 60px -15px rgba(0, 0, 0, 0.85),
+        0 0 35px var(--panel-glow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .club-header-banner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .club-tag-pill {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 700;
+      font-size: 0.88rem;
+      letter-spacing: 0.5px;
+      padding: 5px 18px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #f472b6, #db2777);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(244, 114, 182, 0.45);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* CHEF MADELINE DIALOGUE GREETING */
+    .club-senpai-dialogue {
+      background: linear-gradient(135deg, rgba(46, 20, 42, 0.85), rgba(26, 11, 24, 0.95));
+      border: 1px solid rgba(244, 114, 182, 0.4);
+      border-radius: 18px;
+      padding: 10px 16px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 14px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+    }
+
+    .senpai-avatar-badge {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #f472b6, #e11d48);
+      border: 2px solid #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(244, 114, 182, 0.4);
+    }
+
+    /* CONFIG COLUMNS */
+    .config-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .config-card {
+      background: rgba(38, 16, 35, 0.75);
+      border: 1px solid rgba(244, 114, 182, 0.22);
+      border-radius: 18px;
+      padding: 12px 14px;
+    }
+
+    .label-badge {
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--blush-soft);
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .input-chef-field {
+      width: 100%;
+      background: rgba(48, 22, 45, 0.9);
+      border: 2px solid rgba(244, 114, 182, 0.45);
+      border-radius: 12px;
+      padding: 8px 12px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+    .input-chef-field:focus {
+      border-color: var(--rose-pastel);
+      box-shadow: 0 0 16px rgba(244, 114, 182, 0.5);
+    }
+
+    .avatar-selector-flex {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .avatar-opt-btn {
+      flex: 1;
+      padding: 6px 4px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid rgba(244, 114, 182, 0.2);
+      font-size: 1.25rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+    .avatar-opt-btn:hover {
+      background: rgba(244, 114, 182, 0.18);
+      border-color: var(--rose-pastel);
+    }
+    .avatar-opt-btn.selected {
+      background: rgba(244, 114, 182, 0.32);
+      border-color: var(--rose-pastel);
+      box-shadow: 0 0 14px rgba(244, 114, 182, 0.45);
+      transform: scale(1.06);
+    }
+
+    /* MODE SELECTOR */
+    .mode-cards-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .mode-box-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 2px solid rgba(244, 114, 182, 0.2);
+      border-radius: 14px;
+      padding: 8px 10px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+    .mode-box-btn:hover {
+      background: rgba(244, 114, 182, 0.15);
+      border-color: var(--rose-pastel);
+    }
+    .mode-box-btn.selected {
+      background: linear-gradient(135deg, rgba(244, 114, 182, 0.3), rgba(219, 39, 119, 0.35));
+      border-color: var(--rose-pastel);
+      box-shadow: 0 0 16px rgba(244, 114, 182, 0.4);
+    }
+
+    /* 5 COUNTRIES PASSPORT TABS */
+    .country-nav-pills {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      margin-bottom: 10px;
+      scrollbar-width: none;
+    }
+    .country-nav-pills::-webkit-scrollbar { display: none; }
+
+    .country-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(244, 114, 182, 0.22);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+    .country-pill:hover, .country-pill.active {
+      background: linear-gradient(135deg, #f472b6, #db2777);
+      border-color: #f472b6;
+      color: #fff;
+      font-weight: 800;
+      box-shadow: 0 2px 12px rgba(244, 114, 182, 0.4);
+    }
+
+    /* RECIPES DECK CARDS */
+    .recipe-cards-deck {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 10px;
+      max-height: 165px;
+      overflow-y: auto;
+      padding-right: 4px;
+      margin-bottom: 14px;
+      scrollbar-width: none;
+    }
+    .recipe-cards-deck::-webkit-scrollbar { display: none; }
+
+    .recipe-entry-card {
+      background: rgba(46, 20, 42, 0.65);
+      border: 2px solid rgba(244, 114, 182, 0.18);
+      border-radius: 16px;
+      padding: 9px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .recipe-entry-card:hover {
+      background: rgba(244, 114, 182, 0.16);
+      border-color: rgba(244, 114, 182, 0.6);
+      transform: translateY(-2px);
+    }
+    .recipe-entry-card.selected {
+      background: linear-gradient(135deg, rgba(244, 114, 182, 0.28), rgba(219, 39, 119, 0.22));
+      border-color: var(--rose-pastel);
+      box-shadow: 0 0 16px rgba(244, 114, 182, 0.35);
+    }
+
+    .recipe-entry-icon {
+      font-size: 1.85rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* START BUTTON */
+    .btn-submit-cooking {
+      width: 100%;
+      padding: 13px 20px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: linear-gradient(135deg, #f472b6 0%, #ec4899 50%, #db2777 100%);
+      color: #fff;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 10px 28px -5px rgba(236, 72, 153, 0.65);
+      transition: all 0.22s ease;
+    }
+    .btn-submit-cooking:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 34px -4px rgba(236, 72, 153, 0.85);
+      filter: brightness(1.08);
+    }
+
+    /* IN-GAME HUD OVERLAYS */
+    #hudInGameContainer {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 25;
+      pointer-events: none;
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 14px 18px;
+    }
+
+    .hud-interactive-box {
+      pointer-events: auto;
+      background: var(--panel-glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--panel-border);
+      border-radius: 18px;
+      padding: 10px 16px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.55), 0 0 20px var(--panel-glow);
+    }
+
+    /* FRIENDLY CULINARY DUEL REAL-TIME SPLIT BAR */
+    #hudRivalBattleHeader {
+      display: none;
+      width: 100%;
+      max-width: 920px;
+      margin: 0 auto 8px auto;
+    }
+
+    .battle-split-track-container {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .player-progress-column, .rival-progress-column {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .progress-bar-groove {
+      height: 10px;
+      background: rgba(46, 20, 42, 0.85);
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid rgba(244, 114, 182, 0.25);
+      position: relative;
+    }
+
+    .player-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #f472b6, #fbbf24);
+      border-radius: 999px;
+      transition: width 0.2s ease-out;
+    }
+
+    .rival-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #db2777, #9333ea);
+      border-radius: 999px;
+      transition: width 0.2s ease-out;
+    }
+
+    .vs-emblem-badge {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 700;
+      font-size: 0.82rem;
+      background: linear-gradient(135deg, #f472b6, #db2777);
+      color: #fff;
+      padding: 4px 12px;
+      border-radius: 999px;
+      box-shadow: 0 0 12px rgba(244, 114, 182, 0.6);
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    /* RHYTHM BAR CHOPPING (BABAK 1) */
+    .rhythm-bar-shell {
+      position: relative;
+      height: 38px;
+      background: rgba(36, 15, 34, 0.9);
+      border: 2px solid rgba(244, 114, 182, 0.45);
+      border-radius: 14px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    .rhythm-sweet-zone {
+      position: absolute;
+      left: 38%;
+      width: 24%;
+      height: 100%;
+      background: linear-gradient(90deg, rgba(244, 114, 182, 0.25), rgba(244, 114, 182, 0.7), rgba(244, 114, 182, 0.25));
+      border-left: 2px solid var(--rose-pastel);
+      border-right: 2px solid var(--rose-pastel);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: 0.5px;
+    }
+
+    .rhythm-runner-needle {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 6px;
+      background: #fbbf24;
+      box-shadow: 0 0 14px #fbbf24, 0 0 6px #fff;
+      border-radius: 3px;
+      transform: translateX(-50%);
+      left: 50%;
+    }
+
+    /* RESULT & EVALUATION SCREEN */
+    #screenEvaluation {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 60;
+      background: rgba(18, 7, 19, 0.95);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      overflow: hidden;
+    }
+
+    .eval-card-box {
+      width: 100%;
+      max-width: 780px;
+      max-height: 94vh;
+      background: var(--panel-glass);
+      border: 2px solid var(--panel-border);
+      border-radius: 26px;
+      padding: 24px 30px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.85), 0 0 35px var(--panel-glow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .rank-stamp-badge {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      border: 4px double #fbbf24;
+      color: #fbbf24;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.6rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: rotate(-6deg);
+      box-shadow: 0 0 25px rgba(251, 191, 36, 0.45);
+      background: rgba(251, 191, 36, 0.12);
+      flex-shrink: 0;
+    }
+
+    /* FLOATING TOASTS */
+    .floating-toast-item {
+      position: absolute;
+      left: 50%;
+      top: 40%;
+      transform: translate(-50%, -50%);
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-shadow: 0 3px 10px rgba(0,0,0,0.8);
+      pointer-events: none;
+      z-index: 100;
+      animation: floatUpFade 0.75s ease-out forwards;
+    }
+    @keyframes floatUpFade {
+      0% { opacity: 0; transform: translate(-50%, 10px) scale(0.85); }
+      30% { opacity: 1; transform: translate(-50%, -15px) scale(1.15); }
+      100% { opacity: 0; transform: translate(-50%, -45px) scale(0.95); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- AMBIENT 2D ROSE PARTICLES CANVAS FOR OPENING MENU -->
+  <canvas id="ambient2DCanvas"></canvas>
+
+  <!-- 2D ILLUSTRATED HIGH-DEFINITION KITCHEN POV CANVAS -->
+  <canvas id="kitchenPovCanvas"></canvas>
+
+  <!-- CINEMATIC TRANSITION CURTAIN -->
+  <div id="curtainTransition"></div>
+
+  <!-- ========================================== -->
+  <!-- 1. FULLSCREEN 2D OPENING VIEW (START MENU) -->
+  <!-- ========================================== -->
+  <div id="screenOpening2D">
+    <div class="club-card-window">
+      
+      <!-- Banner Header -->
+      <div class="club-header-banner">
+        <div class="club-tag-pill">
+          🎀 ATELIER DE CUISINE • ELEGANT CULINARY CLUB
+        </div>
+        <div style="font-family: 'Playfair Display', serif; font-size: 0.82rem; color: var(--blush-soft); font-weight: 600; letter-spacing: 0.5px;">
+          ★ Cute Classy Rose Illustrated ASMR POV
+        </div>
+      </div>
+
+      <!-- Dialogue Greeting from Chef Madeline -->
+      <div class="club-senpai-dialogue">
+        <div class="senpai-avatar-badge">👩‍🍳</div>
+        <div>
+          <div style="font-family: 'Playfair Display', serif; font-size: 0.82rem; font-weight: 700; color: var(--blush-soft); text-transform: uppercase;">
+            CHEF MADELINE • KEPALA ATELIER KULINER
+          </div>
+          <p style="font-size: 0.86rem; color: #fdf2f8; line-height: 1.35; margin-top: 2px;">
+            "Selamat datang di Atelier Kuliner kami! Nikmati visual masak berilustrasi indah dengan tekstur makanan yang menggugah selera, sentuhan marmer rosegold, dan suara ASMR yang renyah dan menenangkan."
+          </p>
+        </div>
+      </div>
+
+      <!-- Config 2 Columns -->
+      <div class="config-columns">
+        <div class="config-card">
+          <label class="label-badge"><span>🎀</span> 1. Nama Chef Anda:</label>
+          <input id="inputChefName" class="input-chef-field" type="text" value="Chef Roselle" maxlength="15" placeholder="Ketik nama chef...">
+          
+          <label class="label-badge" style="margin-top: 8px;"><span>✨</span> Pilih Avatar Koki:</label>
+          <div class="avatar-selector-flex">
+            <button class="avatar-opt-btn selected" data-avatar="👩‍🍳">👩‍🍳</button>
+            <button class="avatar-opt-btn" data-avatar="🧑‍🍳">🧑‍🍳</button>
+            <button class="avatar-opt-btn" data-avatar="🎀">🎀</button>
+            <button class="avatar-opt-btn" data-avatar="🧁">🧁</button>
+          </div>
+        </div>
+
+        <div class="config-card">
+          <label class="label-badge"><span>🌸</span> 2. Pilih Mode Pengalaman:</label>
+          <div class="mode-cards-grid">
+            <div id="btnModeBattle" class="mode-box-btn selected" data-mode="battle">
+              <div style="font-weight: 800; font-size: 0.86rem; color: #fff;">✨ Friendly Duel</div>
+              <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 3px; line-height: 1.25;">
+                Adu resep elegan dengan rekan koki atelier (Dual Progress Bar)
+              </div>
+            </div>
+            <div id="btnModeSolo" class="mode-box-btn" data-mode="solo">
+              <div style="font-weight: 800; font-size: 0.86rem; color: #fff;">🍵 Relax & ASMR</div>
+              <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 3px; line-height: 1.25;">
+                Memasak santai berdurasi panjang, fokus audio memikat & renyah
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 Countries Passport Tabs & Recipe Cards -->
+      <div style="margin-bottom: 4px;">
+        <label class="label-badge"><span>📖</span> 3. Buku Menu 5 Destinasi Kuliner:</label>
+        <div class="country-nav-pills" id="countryTabsNav"></div>
+        <div class="recipe-cards-deck" id="recipeDeckContainer"></div>
+      </div>
+
+      <!-- Mulai Masak Button -->
+      <div>
+        <button id="btnStartCookingAction" class="btn-submit-cooking">
+          <span>✨ Mulai Memasak (Buka Dapur Illustrated HD POV)</span> ➔
+        </button>
+        <div style="margin-top: 6px; text-align: center; font-size: 0.72rem; color: var(--text-muted);">
+          🎧 <em>Audio Procedural ASMR murni Web Audio API. Kenakan earphone untuk pengalaman terbaik!</em>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 2. IN-GAME HUD & REAL-TIME DUEL BAR        -->
+  <!-- ========================================== -->
+  <div id="hudInGameContainer">
+    
+    <!-- Top Bar Group -->
+    <div style="display: flex; flex-direction: column; width: 100%; align-items: center;">
+      
+      <!-- FRIENDLY CULINARY DUEL REAL-TIME SPLIT TRACK -->
+      <div id="hudRivalBattleHeader" class="hud-interactive-box">
+        <div class="battle-split-track-container">
+          <!-- Player Track -->
+          <div class="player-progress-column">
+            <div style="display: flex; justify-content: space-between; font-size: 0.72rem; font-weight: 800;">
+              <span id="hudBattlePlayerName" style="color: var(--blush-soft);">Chef Roselle</span>
+              <span id="hudBattlePlayerPct" style="color: #34d399;">0%</span>
+            </div>
+            <div class="progress-bar-groove">
+              <div id="hudBattlePlayerFill" class="player-progress-fill"></div>
+            </div>
+          </div>
+
+          <!-- Center VS Emblem -->
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 2px;">
+            <div class="vs-emblem-badge">✨ DUEL</div>
+            <span id="hudBattleGapDiff" style="font-size: 0.64rem; font-weight: 800; color: #fbbf24;">SEIMBANG</span>
+          </div>
+
+          <!-- Rival Track -->
+          <div class="rival-progress-column">
+            <div style="display: flex; justify-content: space-between; font-size: 0.72rem; font-weight: 800;">
+              <span id="hudBattleRivalPct" style="color: #f472b6;">0%</span>
+              <span id="hudBattleRivalName" style="color: #fbcfe8;">Chef Charlotte</span>
+            </div>
+            <div class="progress-bar-groove">
+              <div id="hudBattleRivalFill" class="rival-progress-fill"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rival Live Dialogue Balloon -->
+        <div style="display: flex; align-items: center; gap: 8px; margin-top: 6px; font-size: 0.72rem; color: #fdf2f8; background: rgba(0,0,0,0.3); padding: 3px 12px; border-radius: 999px;">
+          <span id="hudBattleRivalAv">👩‍🍳</span>
+          <span style="font-weight: 800; color: #f472b6;" id="hudBattleRivalSpeaker">CHARLOTTE:</span>
+          <span id="hudBattleRivalSpeech" style="font-style: italic;">"Mari kita ciptakan mahakarya kuliner yang paling memikat hari ini!"</span>
+        </div>
+      </div>
+
+      <!-- General Stage & Score Status Box -->
+      <div class="hud-interactive-box" style="max-width: 920px; width: 100%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div id="hudActiveIcon" style="font-size: 2rem; background: rgba(244, 114, 182, 0.15); width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(244, 114, 182, 0.3);">
+            🍛
+          </div>
+          <div>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span id="hudActiveFlag">🇮🇩</span>
+              <h3 id="hudActiveDishName" style="font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: #fff;">Nasi Goreng Spesial</h3>
+            </div>
+            <span id="hudActiveStageBadge" style="font-size: 0.7rem; font-weight: 800; padding: 3px 12px; border-radius: 999px; background: linear-gradient(135deg, #f472b6, #db2777); color: #fff; display: inline-block; margin-top: 2px;">
+              BABAK 1: PEMOTONGAN BAHAN PRESISI
+            </span>
+          </div>
+        </div>
+
+        <!-- Live Metrics -->
+        <div style="display: flex; align-items: center; gap: 16px;">
+          <div>
+            <div style="font-size: 0.65rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Skor Chef</div>
+            <div id="hudLiveScore" style="font-size: 1.45rem; font-weight: 900; color: #fbbf24;">0</div>
+          </div>
+
+          <div>
+            <div style="font-size: 0.65rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Combo</div>
+            <div id="hudComboMultiplier" style="font-size: 1.15rem; font-weight: 900; color: var(--rose-pastel);">x1.0</div>
+          </div>
+
+          <div style="width: 110px;">
+            <div style="display: flex; justify-content: space-between; font-size: 0.65rem; font-weight: 800; margin-bottom: 2px;">
+              <span style="color: var(--text-muted);">SISA WAKTU</span>
+              <span id="hudTimerValue" style="color: var(--blush-soft);">55s</span>
+            </div>
+            <div style="height: 8px; background: rgba(46, 20, 42, 0.8); border-radius: 999px; overflow: hidden; border: 1px solid rgba(244, 114, 182, 0.25);">
+              <div id="hudTimerFill" style="height: 100%; width: 100%; background: linear-gradient(90deg, #f472b6, #fbbf24); border-radius: 999px; transition: width 0.15s ease-out;"></div>
+            </div>
+          </div>
+
+          <button id="btnReturnToMenu" style="padding: 6px 12px; font-size: 0.74rem; background: rgba(244, 114, 182, 0.18); border: 1px solid rgba(244, 114, 182, 0.4); color: var(--blush-baby); border-radius: 10px; font-weight: 800; cursor: pointer;">
+            ✕ Keluar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Center Screen Announcement Stamp -->
+    <div id="hudCenterStamp" style="position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%); pointer-events: none; opacity: 0; transition: opacity 0.3s ease; text-align: center;">
+      <span id="hudCenterStampText" style="font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 800; padding: 10px 28px; border-radius: 999px; background: linear-gradient(135deg, #f472b6, #db2777); color: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 0 20px rgba(244, 114, 182, 0.5);">
+        EXQUISITE CHOP! ✨
+      </span>
+    </div>
+
+    <!-- Bottom Controls per Stage -->
+    <div style="display: flex; justify-content: center; width: 100%;">
+      
+      <!-- BABAK 1: CHOPPING CONTROLS -->
+      <div id="panelStage1Chop" class="hud-interactive-box" style="max-width: 650px; width: 100%;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+          <span style="font-size: 0.8rem; font-weight: 800; color: var(--blush-soft);">
+            🔪 Tekan Spasi / Klik saat Jarum Berada di Zona Emas!
+          </span>
+          <span id="hudChopPiecesCount" style="font-size: 0.8rem; font-weight: 800; color: #fff;">
+            Potongan: 0 / 24
+          </span>
+        </div>
+
+        <div class="rhythm-bar-shell">
+          <div class="rhythm-sweet-zone">ZONA HARMONI ✨</div>
+          <div id="rhythmRunnerLine" class="rhythm-runner-needle"></div>
+        </div>
+
+        <div style="display: flex; justify-content: center; margin-top: 8px;">
+          <button id="btnTriggerChop" style="padding: 10px 32px; font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; background: linear-gradient(135deg, #f472b6, #db2777); border: none; border-radius: 12px; color: #fff; cursor: pointer; box-shadow: 0 4px 14px rgba(244, 114, 182, 0.45);">
+            🔪 AYUNKAN PISAU (CHOP!) [SPASI]
+          </button>
+        </div>
+      </div>
+
+      <!-- BABAK 2: WOK SAUTÉING CONTROLS -->
+      <div id="panelStage2Saute" class="hud-interactive-box" style="display: none; max-width: 720px; width: 100%; flex-direction: column; gap: 8px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div style="font-size: 0.82rem; font-weight: 800; color: var(--blush-soft);">
+            🥘 Gerakkan Kursor Memutar di atas Wajan untuk Menumis!
+          </div>
+          <div style="display: flex; gap: 6px;">
+            <button class="heat-btn active" data-heat="mid" style="padding: 4px 12px; font-size: 0.72rem; border-radius: 10px; border: 1px solid var(--rose-pastel); background: #db2777; color: #fff; font-weight: 800; cursor: pointer;">
+              Api Sedang 🔥
+            </button>
+            <button class="heat-btn" data-heat="high" style="padding: 4px 12px; font-size: 0.72rem; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: var(--text-muted); font-weight: 800; cursor: pointer;">
+              Api Besar 🔥🔥
+            </button>
+            <button class="heat-btn" data-heat="low" style="padding: 4px 12px; font-size: 0.72rem; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: var(--text-muted); font-weight: 800; cursor: pointer;">
+              Api Lembut ♨️
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <div style="display: flex; justify-content: space-between; font-size: 0.72rem; font-weight: 800; margin-bottom: 3px;">
+            <span style="color: var(--text-muted);">TINGKAT KEMATANGAN TUMISAN:</span>
+            <span id="hudCookPercentage" style="color: var(--blush-soft);">0% (Mentah)</span>
+          </div>
+          <div style="height: 12px; background: rgba(36, 15, 34, 0.85); border-radius: 999px; overflow: hidden; border: 1px solid rgba(244, 114, 182, 0.25);">
+            <div id="hudCookBarFill" style="height: 100%; width: 0%; background: linear-gradient(90deg, #f472b6, #ec4899, #fbbf24); border-radius: 999px; transition: width 0.1s ease-out;"></div>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: center; gap: 12px; margin-top: 4px;">
+          <button id="btnShakePanToss" style="padding: 7px 22px; font-family: 'Playfair Display', serif; font-size: 0.92rem; font-weight: 700; background: linear-gradient(135deg, #e0a899, #db2777); border: none; border-radius: 12px; color: #fff; cursor: pointer; box-shadow: 0 4px 14px rgba(224, 168, 153, 0.4);">
+            🍳 Pan Toss (Kocok Wajan Cantik!)
+          </button>
+        </div>
+      </div>
+
+      <!-- BABAK 3: PLATING CONTROLS -->
+      <div id="panelStage3Plating" class="hud-interactive-box" style="display: none; max-width: 780px; width: 100%; flex-direction: column; gap: 8px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div style="font-size: 0.82rem; font-weight: 800; color: var(--blush-soft);">
+            🍽️ Pilih Garnish lalu Sentuh Permukaan Piring untuk Menatanya!
+          </div>
+          <span id="hudPlatedCount" style="font-size: 0.78rem; font-weight: 800; color: #34d399;">
+            Garnish: 0 / 5
+          </span>
+        </div>
+
+        <div id="garnishButtonsHolder" style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 3. RESULT & EVALUATION SCREEN (AKHIR GAME) -->
+  <!-- ========================================== -->
+  <div id="screenEvaluation">
+    <div class="eval-card-box">
+      
+      <!-- Top Title -->
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(244, 114, 182, 0.25); padding-bottom: 12px;">
+        <div>
+          <span style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.78rem; font-weight: 700; color: var(--blush-soft); text-transform: uppercase;">
+            EVALUASI KELULUSAN ATELIER DE CUISINE
+          </span>
+          <h2 id="evalTitle" style="font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 800; color: #fff;">
+            Mahakarya Kuliner Sempurna! ✨
+          </h2>
+          <p id="evalSubtitle" style="font-size: 0.84rem; color: var(--text-muted); margin-top: 2px;"></p>
+        </div>
+
+        <div id="evalRankStamp" class="rank-stamp-badge">S</div>
+      </div>
+
+      <!-- Score Breakdown Cards -->
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 14px 0;">
+        <div style="background: rgba(38, 16, 35, 0.75); border: 1px solid rgba(244, 114, 182, 0.2); border-radius: 16px; padding: 12px; text-align: center;">
+          <div style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted);">1. PRESISI PEMOTONGAN</div>
+          <div id="evalChopScore" style="font-size: 1.4rem; font-weight: 900; color: var(--rose-pastel); margin-top: 2px;">0 pts</div>
+        </div>
+
+        <div style="background: rgba(38, 16, 35, 0.75); border: 1px solid rgba(244, 114, 182, 0.2); border-radius: 16px; padding: 12px; text-align: center;">
+          <div style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted);">2. KEMATANGAN SAUTÉING</div>
+          <div id="evalCookScore" style="font-size: 1.4rem; font-weight: 900; color: #fbbf24; margin-top: 2px;">0 pts</div>
+        </div>
+
+        <div style="background: rgba(38, 16, 35, 0.75); border: 1px solid rgba(244, 114, 182, 0.2); border-radius: 16px; padding: 12px; text-align: center;">
+          <div style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted);">3. PLATING & BONUS WAKTU</div>
+          <div id="evalPlateScore" style="font-size: 1.4rem; font-weight: 900; color: #34d399; margin-top: 2px;">0 pts</div>
+        </div>
+      </div>
+
+      <!-- Rival Battle Head to Head Box -->
+      <div id="evalRivalBox" style="background: rgba(46, 20, 42, 0.65); border: 1px solid rgba(244, 114, 182, 0.35); border-radius: 18px; padding: 12px 16px; margin-bottom: 12px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.74rem; font-weight: 800; color: var(--blush-soft); margin-bottom: 6px;">
+          <span>✨ HASIL DUEL PERSAHABATAN:</span>
+          <span id="evalBattleVerdict">UNGGUL TELAK! 👑</span>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div style="background: rgba(28, 11, 26, 0.85); padding: 8px 12px; border-radius: 12px; display: flex; align-items: center; gap: 10px; border: 1px solid rgba(244, 114, 182, 0.3);">
+            <span id="evalPlayerAv" style="font-size: 1.6rem;">👩‍🍳</span>
+            <div>
+              <div id="evalPlayerName" style="font-size: 0.82rem; font-weight: 800; color: #fff;">Chef Roselle</div>
+              <div id="evalPlayerPts" style="font-size: 1.05rem; font-weight: 900; color: #34d399;">2,850 pts 👑</div>
+            </div>
+          </div>
+
+          <div style="background: rgba(28, 11, 26, 0.85); padding: 8px 12px; border-radius: 12px; display: flex; align-items: center; gap: 10px; border: 1px solid rgba(244, 114, 182, 0.15);">
+            <span id="evalRivalAv" style="font-size: 1.6rem;">🧑‍🍳</span>
+            <div>
+              <div id="evalRivalName" style="font-size: 0.82rem; font-weight: 800; color: #fbcfe8;">Chef Charlotte</div>
+              <div id="evalRivalPts" style="font-size: 1.05rem; font-weight: 900; color: #f472b6;">2,420 pts</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dialogue Reaction Box -->
+      <div style="background: linear-gradient(135deg, rgba(46, 20, 42, 0.9), rgba(28, 11, 26, 0.95)); border: 1px solid rgba(244, 114, 182, 0.25); border-radius: 16px; padding: 10px 14px; display: flex; gap: 12px; align-items: center;">
+        <span id="evalSpeakerIcon" style="font-size: 2rem;">👑</span>
+        <div>
+          <div id="evalSpeakerLabel" style="font-family: 'Playfair Display', serif; font-size: 0.74rem; font-weight: 700; color: var(--blush-soft); text-transform: uppercase;">
+            MADAME CAMILLE • KEPALA KURATOR KULINER
+          </div>
+          <p id="evalCommentText" style="font-size: 0.84rem; color: #fdf2f8; line-height: 1.35; margin-top: 2px;">
+            "Penyajian yang begitu anggun dan berkelas! Sensasi rasa, ketelitian pisau, dan penataan piring porselenmu berpadu harmonis."
+          </p>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div style="display: flex; gap: 12px; margin-top: 14px;">
+        <button id="btnReplaySameDish" style="flex: 1; padding: 12px; border-radius: 14px; border: none; background: linear-gradient(135deg, #f472b6, #db2777); color: #fff; font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 14px rgba(244, 114, 182, 0.4);">
+          🔄 Masak Lagi Resep Ini
+        </button>
+        <button id="btnBackToMenu2D" style="flex: 1; padding: 12px; border-radius: 14px; border: 1px solid rgba(244, 114, 182, 0.35); background: rgba(46, 20, 42, 0.85); color: #fff; font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; cursor: pointer;">
+          🏠 Kembali ke Beranda Atelier
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- SCRIPT 1: 2D BACKGROUND PARTICLES CANVAS  -->
+  <!-- ========================================== -->
+  <script>
+    (function initAmbient2DCanvas() {
+      const cvs = document.getElementById('ambient2DCanvas');
+      const ctx = cvs.getContext('2d');
+      let w = cvs.width = window.innerWidth;
+      let h = cvs.height = window.innerHeight;
+
+      const particles = [];
+      const count = 46;
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          r: 1 + Math.random() * 2.8,
+          vx: (Math.random() - 0.5) * 0.35,
+          vy: -0.2 - Math.random() * 0.45,
+          alpha: 0.25 + Math.random() * 0.65,
+          hue: Math.random() > 0.4 ? 335 : 42
+        });
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, w, h);
+        for (let p of particles) {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = `hsla(${p.hue}, 90%, 75%, ${p.alpha})`;
+          ctx.fill();
+
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.y < -10) p.y = h + 10;
+          if (p.x < -10) p.x = w + 10;
+          if (p.x > w + 10) p.x = -10;
+        }
+        requestAnimationFrame(draw);
+      }
+      draw();
+
+      window.addEventListener('resize', () => {
+        w = cvs.width = window.innerWidth;
+        h = cvs.height = window.innerHeight;
+      });
+    })();
+  </script>
+
+  <!-- ========================================== -->
+  <!-- SCRIPT 2: WEB AUDIO API PROCEDURAL ASMR    -->
+  <!-- ========================================== -->
+  <script>
+    class AsmrSynthesizer {
+      constructor() {
+        this.ctx = null;
+        this.sizzleNode = null;
+        this.sizzleGain = null;
+        this.sizzleFilter = null;
+      }
+
+      init() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          this.ctx = new AudioContext();
+          this.buildSizzleLoop();
+        }
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+      }
+
+      buildSizzleLoop() {
+        const bufLen = this.ctx.sampleRate * 2;
+        const buf = this.ctx.createBuffer(1, bufLen, this.ctx.sampleRate);
+        const data = buf.getChannelData(0);
+
+        let b0 = 0, b1 = 0, b2 = 0;
+        for (let i = 0; i < bufLen; i++) {
+          const white = Math.random() * 2 - 1;
+          b0 = 0.99886 * b0 + white * 0.0555179;
+          b1 = 0.99332 * b1 + white * 0.0750759;
+          b2 = 0.96900 * b2 + white * 0.1538520;
+          data[i] = (b0 + b1 + b2 + white * 0.5362) * 0.11;
+        }
+
+        this.sizzleNode = this.ctx.createBufferSource();
+        this.sizzleNode.buffer = buf;
+        this.sizzleNode.loop = true;
+
+        this.sizzleFilter = this.ctx.createBiquadFilter();
+        this.sizzleFilter.type = 'bandpass';
+        this.sizzleFilter.frequency.setValueAtTime(2600, this.ctx.currentTime);
+        this.sizzleFilter.Q.setValueAtTime(1.6, this.ctx.currentTime);
+
+        this.sizzleGain = this.ctx.createGain();
+        this.sizzleGain.gain.setValueAtTime(0.0001, this.ctx.currentTime);
+
+        this.sizzleNode.connect(this.sizzleFilter);
+        this.sizzleFilter.connect(this.sizzleGain);
+        this.sizzleGain.connect(this.ctx.destination);
+        this.sizzleNode.start();
+      }
+
+      setSizzleVolume(level, heatScale = 1.0) {
+        if (!this.sizzleGain) return;
+        const now = this.ctx.currentTime;
+        const vol = Math.max(0.0001, Math.min(0.45, level * 0.38 * heatScale));
+        this.sizzleGain.gain.cancelScheduledValues(now);
+        this.sizzleGain.gain.linearRampToValueAtTime(vol, now + 0.1);
+
+        if (this.sizzleFilter) {
+          const freq = 2100 + (level * 1900 * heatScale);
+          this.sizzleFilter.frequency.setValueAtTime(freq, now);
+        }
+      }
+
+      playKnifeChop(isCrisp = false) {
+        this.init();
+        const now = this.ctx.currentTime;
+
+        const snapLen = 0.045;
+        const snapBuf = this.ctx.createBuffer(1, Math.floor(this.ctx.sampleRate * snapLen), this.ctx.sampleRate);
+        const data = snapBuf.getChannelData(0);
+        for (let i = 0; i < snapBuf.length; i++) {
+          data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (snapBuf.length * 0.22));
+        }
+        const snapNode = this.ctx.createBufferSource();
+        snapNode.buffer = snapBuf;
+
+        const snapFilter = this.ctx.createBiquadFilter();
+        snapFilter.type = 'highpass';
+        snapFilter.frequency.setValueAtTime(isCrisp ? 3800 : 2600, now);
+
+        const snapGain = this.ctx.createGain();
+        snapGain.gain.setValueAtTime(isCrisp ? 0.65 : 0.4, now);
+        snapGain.gain.exponentialRampToValueAtTime(0.005, now + snapLen);
+
+        snapNode.connect(snapFilter);
+        snapFilter.connect(snapGain);
+        snapGain.connect(this.ctx.destination);
+        snapNode.start(now);
+
+        const thudOsc = this.ctx.createOscillator();
+        const thudGain = this.ctx.createGain();
+        thudOsc.type = 'triangle';
+        thudOsc.frequency.setValueAtTime(160 + Math.random() * 25, now);
+        thudOsc.frequency.exponentialRampToValueAtTime(36, now + 0.08);
+
+        thudGain.gain.setValueAtTime(0.68, now);
+        thudGain.gain.exponentialRampToValueAtTime(0.002, now + 0.085);
+
+        thudOsc.connect(thudGain);
+        thudGain.connect(this.ctx.destination);
+        thudOsc.start(now);
+        thudOsc.stop(now + 0.09);
+      }
+
+      playMetallicClink() {
+        this.init();
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(2200 + Math.random() * 380, now);
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.13);
+      }
+
+      playGarnishPop() {
+        this.init();
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(750, now);
+        osc.frequency.exponentialRampToValueAtTime(1450, now + 0.07);
+        gain.gain.setValueAtTime(0.4, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.09);
+      }
+
+      playApplauseAndFanfare() {
+        this.init();
+        const now = this.ctx.currentTime;
+        const notes = [523.25, 659.25, 783.99, 1046.50];
+        notes.forEach((freq, idx) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, now + idx * 0.1);
+          gain.gain.setValueAtTime(0.28, now + idx * 0.1);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.1 + 0.45);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now + idx * 0.1);
+          osc.stop(now + idx * 0.1 + 0.5);
+        });
+      }
+    }
+
+    const audioSynth = new AsmrSynthesizer();
+  </script>
+
+  <!-- ========================================== -->
+  <!-- SCRIPT 3: 5 COUNTRIES RECIPES CATALOG      -->
+  <!-- ========================================== -->
+  <script>
+    const RECIPES_CATALOG = [
+      {
+        id: 'id_nasgor',
+        countryId: 'indonesia',
+        countryName: 'Indonesia',
+        countryFlag: '🇮🇩',
+        name: 'Nasi Goreng Spesial',
+        tagline: 'Karamelisasi kecap manis gurih, kubah nasi pulen harum & irisan cabai segar.',
+        icon: '🍛',
+        difficulty: 'Bintang 2',
+        ingredients: 'Bawang Merah, Cabai, Wortel, Telur Mata Sapi, Kerupuk',
+        baseColor: '#c27803',
+        dishType: 'rice',
+        chopType: 'carrot',
+        chopLabel: 'Iris Wortel Segar & Bawang Merah',
+        chopsNeeded: 24,
+        cookStirsNeeded: 90,
+        garnishes: [
+          { name: 'Telur Mata Sapi', icon: '🍳', type: 'fried_egg' },
+          { name: 'Kerupuk Udang', icon: '🍤', type: 'cracker' },
+          { name: 'Acar Timun Segar', icon: '🥒', type: 'cucumber' },
+          { name: 'Irisan Cabai Merah', icon: '🌶️', type: 'chili' },
+          { name: 'Taburan Bawang Goreng', icon: '🧅', type: 'shallot' }
+        ]
+      },
+      {
+        id: 'id_sate',
+        countryId: 'indonesia',
+        countryName: 'Indonesia',
+        countryFlag: '🇮🇩',
+        name: 'Sate Ayam Madura',
+        tagline: 'Daging ayam panggang empuk dengan saus kacang medok dan irisan bawang merah.',
+        icon: '🍢',
+        difficulty: 'Bintang 3',
+        ingredients: 'Daging Marbled, Saus Kacang, Jeruk Limau, Bawang Merah',
+        baseColor: '#854d0e',
+        dishType: 'meat',
+        chopType: 'meat',
+        chopLabel: 'Potong Dadu Daging Fillet Bertekstur',
+        chopsNeeded: 24,
+        cookStirsNeeded: 90,
+        garnishes: [
+          { name: 'Saus Kacang Gurih', icon: '🥜', type: 'sauce' },
+          { name: 'Irisan Bawang Merah', icon: '🧅', type: 'shallot' },
+          { name: 'Jeruk Limau Segar', icon: '🍋', type: 'lime' },
+          { name: 'Cabai Rawit Hijau', icon: '🌶️', type: 'chili' },
+          { name: 'Lontong Lembut', icon: '🍚', type: 'rice_cake' }
+        ]
+      },
+      {
+        id: 'jp_ramen',
+        countryId: 'japan',
+        countryName: 'Jepang',
+        countryFlag: '🇯🇵',
+        name: 'Shoyu Ramen Otentik',
+        tagline: 'Kaldu shoyu bening umami, mie spiral kenyal, ajitama lezat & nori panggang.',
+        icon: '🍜',
+        difficulty: 'Bintang 3',
+        ingredients: 'Daun Bawang Negi, Ajitama, Nori, Narutomaki, Rebung',
+        baseColor: '#b45309',
+        dishType: 'noodle_bowl',
+        chopType: 'scallion',
+        chopLabel: 'Iris Daun Bawang Tokyo (Negi)',
+        chopsNeeded: 22,
+        cookStirsNeeded: 90,
+        garnishes: [
+          { name: 'Ajitsuke Tamago', icon: '🥚', type: 'ramen_egg' },
+          { name: 'Lembaran Nori Garing', icon: '🍙', type: 'nori_sheet' },
+          { name: 'Narutomaki Spiral', icon: '🍥', type: 'narutomaki' },
+          { name: 'Irisan Daun Bawang', icon: '🌱', type: 'scallion' },
+          { name: 'Chashu Tender', icon: '🥩', type: 'meat_slice' }
+        ]
+      },
+      {
+        id: 'it_carbonara',
+        countryId: 'italy',
+        countryName: 'Italia',
+        countryFlag: '🇮🇹',
+        name: 'Authentic Pasta Carbonara',
+        tagline: 'Emulsi sutra kuning telur segar, pecorino romano & guanciale gurih bertekstur.',
+        icon: '🍝',
+        difficulty: 'Bintang 4',
+        ingredients: 'Daging Guanciale, Pecorino, Lada Hitam, Daun Basil',
+        baseColor: '#fef08a',
+        dishType: 'pasta',
+        chopType: 'meat',
+        chopLabel: 'Potong Dadu Guanciale Marbled',
+        chopsNeeded: 24,
+        cookStirsNeeded: 95,
+        garnishes: [
+          { name: 'Parutan Pecorino', icon: '🧀', type: 'cheese' },
+          { name: 'Lada Hitam Kasar', icon: '🧂', type: 'pepper' },
+          { name: 'Daun Basil Italia', icon: '🌿', type: 'basil' },
+          { name: 'Guanciale Crispy', icon: '🥓', type: 'bacon' },
+          { name: 'Kuning Telur Creamy', icon: '🥚', type: 'egg_yolk' }
+        ]
+      },
+      {
+        id: 'mx_tacos',
+        countryId: 'mexico',
+        countryName: 'Meksiko',
+        countryFlag: '🇲🇽',
+        name: 'Crispy Beef Tacos',
+        tagline: 'Tortilla jagung renyah dengan suwiran daging sapi harum rempah & jalapeno segar.',
+        icon: '🌮',
+        difficulty: 'Bintang 2',
+        ingredients: 'Jalapeno, Daging Sapi, Guacamole, Keju Oaxaca, Jeruk Nipis',
+        baseColor: '#d97706',
+        dishType: 'taco',
+        chopType: 'jalapeno',
+        chopLabel: 'Cincang Salsa & Cabai Jalapeno',
+        chopsNeeded: 22,
+        cookStirsNeeded: 85,
+        garnishes: [
+          { name: 'Guacamole Alpukat', icon: '🥑', type: 'guac' },
+          { name: 'Keju Oaxaca Parut', icon: '🧀', type: 'cheese' },
+          { name: 'Irisan Jeruk Nipis', icon: '🍋', type: 'lime' },
+          { name: 'Salsa Tomat Segar', icon: '🍅', type: 'salsa' },
+          { name: 'Daun Cilantro', icon: '🌿', type: 'cilantro' }
+        ]
+      },
+      {
+        id: 'fr_crepe',
+        countryId: 'france',
+        countryName: 'Prancis',
+        countryFlag: '🇫🇷',
+        name: 'Crêpe Suzette Flambé',
+        tagline: 'Pancake tipis sutra Prancis disiram karamel mentega jeruk wangi dan flambé.',
+        icon: '🥞',
+        difficulty: 'Bintang 4',
+        ingredients: 'Wortel/Kulit Jeruk, Chantilly Cream, Stroberi, Daun Mint',
+        baseColor: '#fde047',
+        dishType: 'crepe',
+        chopType: 'carrot',
+        chopLabel: 'Iris Halus Kulit Jeruk & Buah Segar',
+        chopsNeeded: 22,
+        cookStirsNeeded: 90,
+        garnishes: [
+          { name: 'Krim Chantilly Lembut', icon: '🍦', type: 'cream' },
+          { name: 'Stroberi Glaze Segar', icon: '🍓', type: 'strawberry' },
+          { name: 'Daun Mint Organik', icon: '🌱', type: 'mint' },
+          { name: 'Saus Karamel Jeruk', icon: '🍯', type: 'caramel' },
+          { name: 'Taburan Gula Halus', icon: '✨', type: 'sugar' }
+        ]
+      }
+    ];
+
+    const COUNTRY_TABS_LIST = [
+      { id: 'all', name: '🌸 Semua Menu', flag: '🌍' },
+      { id: 'indonesia', name: 'Indonesia', flag: '🇮🇩' },
+      { id: 'japan', name: 'Jepang', flag: '🇯🇵' },
+      { id: 'italy', name: 'Italia', flag: '🇮🇹' },
+      { id: 'mexico', name: 'Meksiko', flag: '🇲🇽' },
+      { id: 'france', name: 'Prancis', flag: '🇫🇷' }
+    ];
+
+    const RIVAL_OPPONENTS = [
+      { 
+        name: 'Chef Charlotte', 
+        title: 'Patissiere de Paris', 
+        avatar: '👩‍🍳', 
+        quotes: [
+          '"Sentuhan rasa dan keanggunan hidanganku selalu sempurna!"',
+          '"Aroma harum mentega dan saus karamel ini sungguh memikat..."',
+          '"Plating manisku sudah hampir selesai! Bersiaplah terpesona!"'
+        ],
+        commentWin: '"Luar biasa! Komposisi rasa dan keanggunan hidanganmu sangat memikat hati. Kamu koki sejati!"',
+        commentLose: '"Kecermatan dan kelembutan teknikku masih selangkah lebih unggul! Mari memasak bersama lagi nanti."'
+      },
+      { 
+        name: 'Chef Julian', 
+        title: 'Bistro Gourmet Master', 
+        avatar: '🧑‍🍳', 
+        quotes: [
+          '"Keseimbangan rasa dan tekstur adalah kunci utama kuliner berkelas!"',
+          '"Sautéing dengan api pas menghasilkan kilau hidangan terbaik!"',
+          '"Sedikit sentuhan garnish lagi dan mahakaryaku siap dinikmati!"'
+        ],
+        commentWin: '"Teknik yang sangat mempesona! Hidanganmu layak disajikan di restoran bintang lima."',
+        commentLose: '"Harmoni rasa dan waktu masakanku masih memimpin kali ini. Teruslah berkarya di dapur atelier!"'
+      },
+      { 
+        name: 'Chef Vivienne', 
+        title: 'Artisan Botanical Chef', 
+        avatar: '🎀', 
+        quotes: [
+          '"Setiap bumbu dan aroma alami harus berdansa dalam harmoni!',
+          '"Desisan wajan rose gold ini bagaikan alunan simfoni klasik!"',
+          '"Piring porselen ini siap menjadi kanvas seni kulinermu!"'
+        ],
+        commentWin: '"Estetika dan kelembutan rasamu sungguh magis! Selamat atas hidangan mahakarya ini."',
+        commentLose: '"Sentuhan akhirku masih sedikit lebih anggun hari ini. Jangan ragu untuk mencoba kembali!"'
+      }
+    ];
+  </script>
+
+  <!-- ============================================================== -->
+  <!-- SCRIPT 4: 2D ILLUSTRATED HD POV ENGINE WITH HANDS & APPETIZING -->
+  <!-- ============================================================== -->
+  <script>
+    const povCanvas = document.getElementById('kitchenPovCanvas');
+    const povCtx = povCanvas.getContext('2d');
+    let povWidth = 0, povHeight = 0;
+
+    let mousePos = { x: 0, y: 0 };
+    let knifeChopT = 0;
+    let knifeTargetX = 0, knifeTargetY = 0;
+    let spatulaStirAngle = 0;
+    let panShakeAmp = 0;
+    let heatRate = 1.0;
+    let timingSine = 0;
+
+    // Slices and Particles physics
+    let activeSlices = [];
+    let steamParticles = [];
+    let placedGarnishes = [];
+    let sauceShimmerDots = [];
+    let isPovActive = false;
+
+    function resizePovCanvas() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      povWidth = window.innerWidth;
+      povHeight = window.innerHeight;
+      povCanvas.width = povWidth * dpr;
+      povCanvas.height = povHeight * dpr;
+      povCtx.scale(dpr, dpr);
+    }
+
+    function initPovEngine() {
+      if (isPovActive) return;
+      isPovActive = true;
+      povCanvas.classList.add('active');
+      resizePovCanvas();
+      window.addEventListener('resize', resizePovCanvas);
+
+      window.addEventListener('mousemove', (e) => {
+        mousePos.x = e.clientX;
+        mousePos.y = e.clientY;
+        if (GameController.isCooking && GameController.currentStage === 2) {
+          const mag = Math.hypot(e.movementX, e.movementY);
+          onUserStirWokMotion(mag);
+        }
+      });
+
+      povCanvas.addEventListener('pointerdown', (e) => {
+        if (!GameController.isCooking) return;
+        if (GameController.currentStage === 1) {
+          triggerKnifeChopAction();
+        } else if (GameController.currentStage === 3) {
+          handlePlatingClick(e);
+        }
+      });
+
+      // Initialize steam and shimmer pool
+      for (let i = 0; i < 28; i++) {
+        steamParticles.push({
+          x: povWidth * 0.5 + (Math.random() - 0.5) * 160,
+          y: povHeight * 0.55 + Math.random() * 80,
+          r: 20 + Math.random() * 40,
+          vy: -1.2 - Math.random() * 1.5,
+          alpha: 0.1 + Math.random() * 0.25,
+          life: Math.random()
+        });
+      }
+      for (let i = 0; i < 24; i++) {
+        sauceShimmerDots.push({
+          x: (Math.random() - 0.5) * 220,
+          y: (Math.random() - 0.5) * 120,
+          r: 1.5 + Math.random() * 2.5,
+          phase: Math.random() * Math.PI * 2
+        });
+      }
+
+      requestAnimationFrame(renderPovLoop);
+    }
+
+    // -------------------------------------------------------------
+    // DRAWING WORKSTATION 1: WHITE MARBLE CUTTING BOARD & INGREDIENT
+    // -------------------------------------------------------------
+    function drawCuttingBoardStation() {
+      const cx = povWidth * 0.5;
+      const cy = povHeight * 0.55;
+
+      // 1. Carrara Marble Countertop with Rose Veins (Background)
+      const counterGrad = povCtx.createLinearGradient(0, 0, 0, povHeight);
+      counterGrad.addColorStop(0, '#2d142b');
+      counterGrad.addColorStop(0.35, '#fff9fb');
+      counterGrad.addColorStop(1, '#f7eef2');
+      povCtx.fillStyle = counterGrad;
+      povCtx.fillRect(0, 0, povWidth, povHeight);
+
+      // Rose Marble Veins on Countertop
+      povCtx.save();
+      povCtx.strokeStyle = 'rgba(244, 114, 182, 0.12)';
+      povCtx.lineWidth = 3;
+      povCtx.beginPath();
+      povCtx.moveTo(0, povHeight * 0.3);
+      povCtx.bezierCurveTo(povWidth * 0.3, povHeight * 0.35, povWidth * 0.6, povHeight * 0.25, povWidth, povHeight * 0.4);
+      povCtx.moveTo(0, povHeight * 0.7);
+      povCtx.bezierCurveTo(povWidth * 0.4, povHeight * 0.65, povWidth * 0.7, povHeight * 0.8, povWidth, povHeight * 0.75);
+      povCtx.stroke();
+      povCtx.restore();
+
+      // 2. Marble Cutting Board with Rose Gold Edge
+      const bw = Math.min(560, povWidth * 0.75);
+      const bh = Math.min(340, povHeight * 0.48);
+      const bx = cx - bw / 2;
+      const by = cy - bh / 2;
+
+      // Board Soft Shadow
+      povCtx.save();
+      povCtx.shadowColor = 'rgba(219, 39, 119, 0.18)';
+      povCtx.shadowBlur = 35;
+      povCtx.shadowOffsetY = 15;
+
+      // Board Base (Ivory Marble)
+      const bGrad = povCtx.createLinearGradient(bx, by, bx + bw, by + bh);
+      bGrad.addColorStop(0, '#ffffff');
+      bGrad.addColorStop(0.5, '#fdf4f8');
+      bGrad.addColorStop(1, '#fae8f0');
+      povCtx.fillStyle = bGrad;
+      roundRect(povCtx, bx, by, bw, bh, 24, true, false);
+      povCtx.restore();
+
+      // Rose Gold Rim & Juice Groove
+      povCtx.save();
+      povCtx.strokeStyle = '#e0a899';
+      povCtx.lineWidth = 3.5;
+      roundRect(povCtx, bx + 14, by + 14, bw - 28, bh - 28, 16, false, true);
+
+      // Rose Ribbon Bow on Top-Left Board Corner
+      drawCuteBow(bx + 35, by + 35, 18, '#f472b6');
+      povCtx.restore();
+
+      // 3. Realistic Raw Ingredient (Carrot, Marbled Beef, Negi Scallion)
+      const req = GameController.activeRecipe.chopsNeeded;
+      const progress = GameController.chopsDone / req;
+      const scaleRemaining = Math.max(0.15, 1 - progress * 0.75);
+
+      povCtx.save();
+      povCtx.translate(cx - 30, cy);
+      povCtx.scale(scaleRemaining, 1);
+
+      if (GameController.activeRecipe.chopType === 'carrot') {
+        drawRealisticCarrot();
+      } else if (GameController.activeRecipe.chopType === 'meat') {
+        drawRealisticMarbledSteak();
+      } else {
+        drawRealisticScallion();
+      }
+      povCtx.restore();
+
+      // 4. Render Sliced Flying / Resting Pieces with Glossy Shadows
+      activeSlices.forEach(s => {
+        povCtx.save();
+        povCtx.translate(s.x, s.y);
+        povCtx.rotate(s.rot);
+
+        // Slice shadow
+        povCtx.fillStyle = 'rgba(0,0,0,0.12)';
+        povCtx.beginPath();
+        povCtx.ellipse(0, 8, 20, 10, 0, 0, Math.PI * 2);
+        povCtx.fill();
+
+        if (GameController.activeRecipe.chopType === 'carrot') {
+          // Glossy carrot disc with pale core
+          const cGrad = povCtx.createRadialGradient(0, 0, 4, 0, 0, 18);
+          cGrad.addColorStop(0, '#fed7aa');
+          cGrad.addColorStop(0.5, '#fb923c');
+          cGrad.addColorStop(1, '#ea580c');
+          povCtx.fillStyle = cGrad;
+          povCtx.beginPath();
+          povCtx.ellipse(0, 0, 18, 12, 0, 0, Math.PI * 2);
+          povCtx.fill();
+          povCtx.strokeStyle = '#c2410c';
+          povCtx.lineWidth = 1.5;
+          povCtx.stroke();
+        } else if (GameController.activeRecipe.chopType === 'meat') {
+          // Tender glossy meat cubes with white fat streak
+          povCtx.fillStyle = '#991b1b';
+          roundRect(povCtx, -16, -12, 32, 24, 6, true, false);
+          povCtx.fillStyle = '#fef3c7';
+          povCtx.fillRect(-16, -4, 32, 4);
+          // Glaze highlight
+          povCtx.fillStyle = 'rgba(255,255,255,0.4)';
+          povCtx.fillRect(-12, -10, 24, 3);
+        } else {
+          // Scallion ring
+          povCtx.strokeStyle = '#16a34a';
+          povCtx.lineWidth = 5;
+          povCtx.beginPath();
+          povCtx.ellipse(0, 0, 16, 10, 0, 0, Math.PI * 2);
+          povCtx.stroke();
+        }
+        povCtx.restore();
+      });
+
+      // 5. CHEF LEFT HAND (CLAW GRIP / MEMEGANG BAHAN SECARA ELEGAN)
+      drawChefLeftClawHand(cx - 100, cy - 10);
+
+      // 6. CHEF RIGHT HAND & ROSE GOLD SANTOKU KNIFE
+      drawChefRightKnifeHand(cx + 60, cy);
+    }
+
+    // Realistic Carrot Vector Illustration
+    function drawRealisticCarrot() {
+      // Body Shadow
+      povCtx.save();
+      povCtx.fillStyle = 'rgba(0,0,0,0.15)';
+      povCtx.beginPath();
+      povCtx.ellipse(0, 22, 90, 14, 0, 0, Math.PI * 2);
+      povCtx.fill();
+
+      // Carrot Tapered Body
+      const cGrad = povCtx.createLinearGradient(-80, -20, 80, 20);
+      cGrad.addColorStop(0, '#c2410c');
+      cGrad.addColorStop(0.3, '#f97316');
+      cGrad.addColorStop(0.7, '#fb923c');
+      cGrad.addColorStop(1, '#ea580c');
+      povCtx.fillStyle = cGrad;
+
+      povCtx.beginPath();
+      povCtx.moveTo(-75, 4);
+      povCtx.quadraticCurveTo(0, -22, 85, -16);
+      povCtx.quadraticCurveTo(90, 0, 85, 16);
+      povCtx.quadraticCurveTo(0, 22, -75, 4);
+      povCtx.closePath();
+      povCtx.fill();
+
+      // Translucent Specular Glossy Highlight
+      povCtx.fillStyle = 'rgba(255, 255, 255, 0.45)';
+      povCtx.beginPath();
+      povCtx.ellipse(15, -10, 50, 4, -0.05, 0, Math.PI * 2);
+      povCtx.fill();
+
+      // Horizontal Textured Rings
+      povCtx.strokeStyle = 'rgba(154, 52, 18, 0.45)';
+      povCtx.lineWidth = 2;
+      for (let i = -50; i < 70; i += 22) {
+        povCtx.beginPath();
+        povCtx.moveTo(i, -12);
+        povCtx.quadraticCurveTo(i + 5, 0, i, 12);
+        povCtx.stroke();
+      }
+
+      // Fresh Green Foliage Tops
+      povCtx.strokeStyle = '#15803d';
+      povCtx.lineWidth = 3;
+      povCtx.beginPath();
+      povCtx.moveTo(85, -5); povCtx.lineTo(125, -28);
+      povCtx.moveTo(85, 0); povCtx.lineTo(135, -5);
+      povCtx.moveTo(85, 5); povCtx.lineTo(120, 18);
+      povCtx.stroke();
+      povCtx.restore();
+    }
+
+    // Realistic Marbled Steak Cut
+    function drawRealisticMarbledSteak() {
+      povCtx.save();
+      // Drop Shadow
+      povCtx.fillStyle = 'rgba(0,0,0,0.18)';
+      povCtx.beginPath();
+      povCtx.ellipse(0, 28, 75, 18, 0, 0, Math.PI * 2);
+      povCtx.fill();
+
+      // Thick Steak Body
+      const sGrad = povCtx.createLinearGradient(-60, -30, 60, 30);
+      sGrad.addColorStop(0, '#7f1d1d');
+      sGrad.addColorStop(0.4, '#991b1b');
+      sGrad.addColorStop(0.7, '#b91c1c');
+      sGrad.addColorStop(1, '#881337');
+      povCtx.fillStyle = sGrad;
+      roundRect(povCtx, -70, -28, 140, 56, 16, true, false);
+
+      // Creamy Fat Ribbon Waves (Marbling)
+      povCtx.strokeStyle = '#fef3c7';
+      povCtx.lineWidth = 4;
+      povCtx.beginPath();
+      povCtx.moveTo(-60, -12);
+      povCtx.bezierCurveTo(-20, -20, 10, -5, 55, -18);
+      povCtx.moveTo(-50, 8);
+      povCtx.bezierCurveTo(-15, 0, 15, 18, 50, 6);
+      povCtx.stroke();
+
+      // Glossy Meat Jus Glaze Highlights
+      povCtx.fillStyle = 'rgba(255, 255, 255, 0.45)';
+      povCtx.beginPath();
+      povCtx.ellipse(0, -14, 45, 5, 0, 0, Math.PI * 2);
+      povCtx.fill();
+      povCtx.restore();
+    }
+
+    // Realistic Scallion (Tokyo Negi)
+    function drawRealisticScallion() {
+      povCtx.save();
+      const nGrad = povCtx.createLinearGradient(-80, 0, 80, 0);
+      nGrad.addColorStop(0, '#f8fafc');
+      nGrad.addColorStop(0.4, '#86efac');
+      nGrad.addColorStop(1, '#16a34a');
+      povCtx.fillStyle = nGrad;
+      roundRect(povCtx, -80, -14, 160, 28, 12, true, false);
+      povCtx.restore();
+    }
+
+    // -------------------------------------------------------------
+    // CHEF FPV HANDS ILLUSTRATION (CHIC PASTEL CUFFS & ROSE GOLD)
+    // -------------------------------------------------------------
+    function drawChefLeftClawHand(hx, hy) {
+      povCtx.save();
+      // Arm sleeve coming from bottom left
+      const armGrad = povCtx.createLinearGradient(0, povHeight, hx, hy);
+      armGrad.addColorStop(0, '#fdf2f8');
+      armGrad.addColorStop(1, '#ffffff');
+      povCtx.fillStyle = armGrad;
+
+      povCtx.beginPath();
+      povCtx.moveTo(0, povHeight);
+      povCtx.lineTo(hx - 80, hy + 60);
+      povCtx.lineTo(hx - 20, hy + 20);
+      povCtx.lineTo(hx - 10, hy + 40);
+      povCtx.lineTo(100, povHeight);
+      povCtx.closePath();
+      povCtx.fill();
+
+      // Pastel Pink Cuff & Satin Ribbon Bow
+      povCtx.fillStyle = '#fbcfe8';
+      povCtx.strokeStyle = '#f472b6';
+      povCtx.lineWidth = 2.5;
+      roundRect(povCtx, hx - 70, hy + 25, 60, 22, 10, true, true);
+      drawCuteBow(hx - 40, hy + 36, 12, '#ec4899');
+
+      // Claw Fingers Gently Securing the Food
+      povCtx.fillStyle = '#fce7f3';
+      povCtx.strokeStyle = '#f472b6';
+      povCtx.lineWidth = 1.8;
+
+      // 4 Knuckles / Curved Fingertips
+      for (let i = 0; i < 4; i++) {
+        const fx = hx + i * 16 - 25;
+        const fy = hy - Math.sin(i * 0.8) * 8;
+        povCtx.beginPath();
+        povCtx.arc(fx, fy, 11, 0, Math.PI * 2);
+        povCtx.fill();
+        povCtx.stroke();
+
+        // Elegant glossy nail polish
+        povCtx.fillStyle = '#f472b6';
+        povCtx.beginPath();
+        povCtx.ellipse(fx, fy - 4, 4, 3, 0, 0, Math.PI * 2);
+        povCtx.fill();
+        povCtx.fillStyle = '#fce7f3';
+      }
+      povCtx.restore();
+    }
+
+    function drawChefRightKnifeHand(kx, ky) {
+      povCtx.save();
+      const knifeOffsetX = (mousePos.x - povWidth * 0.5) * 0.25;
+      const knifeOffsetY = (mousePos.y - povHeight * 0.5) * 0.15;
+      const curX = kx + knifeOffsetX;
+      const curY = ky + knifeOffsetY + (knifeChopT > 0 ? (1 - knifeChopT) * 70 - 35 : 0);
+      const rot = knifeChopT > 0 ? (knifeChopT - 0.5) * 0.4 : -0.12;
+
+      povCtx.translate(curX, curY);
+      povCtx.rotate(rot);
+
+      // Arm Sleeve from Bottom Right
+      const armGrad = povCtx.createLinearGradient(150, 200, 0, 0);
+      armGrad.addColorStop(0, '#fdf2f8');
+      armGrad.addColorStop(1, '#ffffff');
+      povCtx.fillStyle = armGrad;
+      povCtx.beginPath();
+      povCtx.moveTo(povWidth - curX, povHeight - curY);
+      povCtx.lineTo(60, 80);
+      povCtx.lineTo(10, 40);
+      povCtx.lineTo(povWidth - curX - 60, povHeight - curY);
+      povCtx.closePath();
+      povCtx.fill();
+
+      // Pastel Pink Cuff
+      povCtx.fillStyle = '#fbcfe8';
+      povCtx.strokeStyle = '#f472b6';
+      povCtx.lineWidth = 2.5;
+      roundRect(povCtx, 15, 45, 55, 20, 10, true, true);
+      drawCuteBow(42, 55, 12, '#ec4899');
+
+      // Hand Gripping Knife Handle
+      povCtx.fillStyle = '#fce7f3';
+      povCtx.beginPath();
+      povCtx.ellipse(15, 20, 18, 14, 0.2, 0, Math.PI * 2);
+      povCtx.fill();
+
+      // Rose Gold Santoku Knife Blade
+      povCtx.save();
+      // Bolster Rose Gold
+      povCtx.fillStyle = '#e0a899';
+      povCtx.fillRect(-8, -8, 16, 24);
+
+      // Blush Pink Handle
+      const hGrad = povCtx.createLinearGradient(0, 0, 0, 70);
+      hGrad.addColorStop(0, '#f472b6');
+      hGrad.addColorStop(1, '#db2777');
+      povCtx.fillStyle = hGrad;
+      roundRect(povCtx, -7, 16, 14, 65, 7, true, false);
+
+      // Gleaming Stainless Knife Blade with Rose Gold Spine
+      const bGrad = povCtx.createLinearGradient(-15, -160, 15, 0);
+      bGrad.addColorStop(0, '#ffffff');
+      bGrad.addColorStop(0.5, '#f8fafc');
+      bGrad.addColorStop(1, '#cbd5e1');
+      povCtx.fillStyle = bGrad;
+
+      povCtx.beginPath();
+      povCtx.moveTo(-4, -6);
+      povCtx.lineTo(-4, -160);
+      povCtx.quadraticCurveTo(12, -145, 16, -30);
+      povCtx.lineTo(12, -6);
+      povCtx.closePath();
+      povCtx.fill();
+
+      // Sharp Edge Reflection
+      povCtx.strokeStyle = '#ffffff';
+      povCtx.lineWidth = 2;
+      povCtx.beginPath();
+      povCtx.moveTo(12, -6);
+      povCtx.lineTo(16, -30);
+      povCtx.quadraticCurveTo(12, -145, -4, -160);
+      povCtx.stroke();
+      povCtx.restore();
+
+      povCtx.restore();
+    }
+
+    // -------------------------------------------------------------
+    // DRAWING WORKSTATION 2: DUSTY PINK & ROSE GOLD WOK SAUTÉING
+    // -------------------------------------------------------------
+    function drawWokSauteStation() {
+      const cx = povWidth * 0.5;
+      const cy = povHeight * 0.52;
+
+      // 1. Parisian Marble Kitchen Background
+      const counterGrad = povCtx.createLinearGradient(0, 0, 0, povHeight);
+      counterGrad.addColorStop(0, '#2d142b');
+      counterGrad.addColorStop(0.35, '#fff9fb');
+      counterGrad.addColorStop(1, '#f7eef2');
+      povCtx.fillStyle = counterGrad;
+      povCtx.fillRect(0, 0, povWidth, povHeight);
+
+      // Induction Glass Rose Plate
+      povCtx.save();
+      povCtx.fillStyle = '#221123';
+      povCtx.beginPath();
+      povCtx.ellipse(cx, cy + 20, 260, 160, 0, 0, Math.PI * 2);
+      povCtx.fill();
+
+      // Glowing Rose Gold Heating Coil
+      povCtx.strokeStyle = 'rgba(244, 114, 182, 0.7)';
+      povCtx.lineWidth = 5;
+      povCtx.beginPath();
+      povCtx.ellipse(cx, cy + 20, 210, 125, 0, 0, Math.PI * 2);
+      povCtx.stroke();
+      povCtx.restore();
+
+      // 2. Dusty Pink Ceramic Skillet Pan with Shake Motion
+      povCtx.save();
+      const shakeY = panShakeAmp > 0 ? Math.sin(Date.now() * 0.05) * panShakeAmp * 12 : 0;
+      povCtx.translate(cx, cy + shakeY);
+
+      // Pan Outer Shadow
+      povCtx.fillStyle = 'rgba(0,0,0,0.22)';
+      povCtx.beginPath();
+      povCtx.ellipse(0, 55, 230, 130, 0, 0, Math.PI * 2);
+      povCtx.fill();
+
+      // Pan Outer Body (Dusty Pink / Rose Gold Rim)
+      const pGrad = povCtx.createLinearGradient(-220, 0, 220, 0);
+      pGrad.addColorStop(0, '#db2777');
+      pGrad.addColorStop(0.5, '#f472b6');
+      pGrad.addColorStop(1, '#be185d');
+      povCtx.fillStyle = pGrad;
+      povCtx.beginPath();
+      povCtx.ellipse(0, 15, 225, 130, 0, 0, Math.PI * 2);
+      povCtx.fill();
+
+      // Pan Rose Gold Lip Rim
+      povCtx.strokeStyle = '#e0a899';
+      povCtx.lineWidth = 5;
+      povCtx.stroke();
+
+      // Pan Interior Cooking Surface
+      const inGrad = povCtx.createRadialGradient(0, 0, 30, 0, 0, 190);
+      inGrad.addColorStop(0, '#381c32');
+      inGrad.addColorStop(0.8, '#241021');
+      inGrad.addColorStop(1, '#1a0b18');
+      povCtx.fillStyle = inGrad;
+      povCtx.beginPath();
+      povCtx.ellipse(0, 0, 195, 110, 0, 0, Math.PI * 2);
+      povCtx.fill();
+
+      // 3. Appetizing Tumbling Food with Sauce Glaze Shimmer
+      const req = GameController.activeRecipe.cookStirsNeeded;
+      const doneness = Math.min(1, GameController.stirsDone / req);
+      const foodColor = lerpColor(GameController.activeRecipe.baseColor, '#451a03', doneness * 0.6);
+
+      // Food Mound inside Pan
+      povCtx.fillStyle = foodColor;
+      povCtx.beginPath();
+      povCtx.ellipse(0, 5, 160, 85, 0, 0, Math.PI * 2);
+      povCtx.fill();
+
+      // Render Gourmet Bits (scallions, chili, eggs, meat cubes)
+      povCtx.save();
+      povCtx.rotate(spatulaStirAngle * 0.2);
+      for (let i = 0; i < 18; i++) {
+        const ang = (i / 18) * Math.PI * 2;
+        const rad = 45 + (i % 4) * 22;
+        const fx = Math.cos(ang) * rad;
+        const fy = Math.sin(ang) * (rad * 0.55);
+
+        povCtx.fillStyle = i % 3 === 0 ? '#facc15' : (i % 3 === 1 ? '#ef4444' : '#22c55e');
+        povCtx.beginPath();
+        povCtx.arc(fx, fy, 5 + (i % 3) * 2, 0, Math.PI * 2);
+        povCtx.fill();
+      }
+      povCtx.restore();
+
+      // Sauce Shimmer Glitter Particles
+      sauceShimmerDots.forEach(d => {
+        d.phase += 0.08 * heatRate;
+        const alpha = 0.3 + Math.sin(d.phase) * 0.5;
+        if (alpha > 0.2) {
+          povCtx.fillStyle = `rgba(255, 230, 180, ${alpha})`;
+          povCtx.beginPath();
+          povCtx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+          povCtx.fill();
+        }
+      });
+
+      povCtx.restore();
+
+      // 4. Soft Dreamy Steam Wisps
+      steamParticles.forEach(p => {
+        p.y += p.vy * heatRate;
+        p.life += 0.018 * heatRate;
+        p.r += 0.45;
+        const alpha = Math.max(0, (1 - p.life) * 0.25);
+
+        povCtx.fillStyle = `rgba(255, 245, 250, ${alpha})`;
+        povCtx.beginPath();
+        povCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        povCtx.fill();
+
+        if (p.life >= 1) {
+          p.life = 0;
+          p.x = cx + (Math.random() - 0.5) * 160;
+          p.y = cy + 40;
+          p.r = 18 + Math.random() * 25;
+        }
+      });
+
+      // 5. CHEF RIGHT HAND & ROSE GOLD SILICONE SPATULA STIRRING
+      drawChefRightSpatulaHand(cx, cy);
+    }
+
+    function drawChefRightSpatulaHand(cx, cy) {
+      povCtx.save();
+      const stirX = cx + Math.cos(spatulaStirAngle) * 75;
+      const stirY = cy + Math.sin(spatulaStirAngle) * 45;
+
+      povCtx.translate(stirX, stirY);
+      povCtx.rotate(-spatulaStirAngle * 0.3);
+
+      // Arm Sleeve from Bottom Right
+      const armGrad = povCtx.createLinearGradient(120, 180, 0, 0);
+      armGrad.addColorStop(0, '#fdf2f8');
+      armGrad.addColorStop(1, '#ffffff');
+      povCtx.fillStyle = armGrad;
+      povCtx.beginPath();
+      povCtx.moveTo(povWidth - stirX, povHeight - stirY);
+      povCtx.lineTo(60, 80);
+      povCtx.lineTo(10, 40);
+      povCtx.lineTo(povWidth - stirX - 50, povHeight - stirY);
+      povCtx.closePath();
+      povCtx.fill();
+
+      // Pastel Pink Cuff
+      povCtx.fillStyle = '#fbcfe8';
+      povCtx.strokeStyle = '#f472b6';
+      povCtx.lineWidth = 2.5;
+      roundRect(povCtx, 15, 45, 55, 20, 10, true, true);
+      drawCuteBow(42, 55, 12, '#ec4899');
+
+      // Hand Holding Spatula
+      povCtx.fillStyle = '#fce7f3';
+      povCtx.beginPath();
+      povCtx.ellipse(15, 20, 18, 14, 0.2, 0, Math.PI * 2);
+      povCtx.fill();
+
+      // Spatula Shaft (Champagne Gold)
+      povCtx.fillStyle = '#fcd34d';
+      povCtx.fillRect(-5, -60, 10, 80);
+
+      // Silicone Pastel Pink Spatula Head
+      const sHeadGrad = povCtx.createLinearGradient(-25, -110, 25, -60);
+      sHeadGrad.addColorStop(0, '#f472b6');
+      sHeadGrad.addColorStop(1, '#db2777');
+      povCtx.fillStyle = sHeadGrad;
+      roundRect(povCtx, -24, -110, 48, 55, 12, true, false);
+
+      povCtx.restore();
+    }
+
+    // -------------------------------------------------------------
+    // DRAWING WORKSTATION 3: FINE PORCELAIN PLATING & DRESSAGE
+    // -------------------------------------------------------------
+    function drawPlatingStation() {
+      const cx = povWidth * 0.5;
+      const cy = povHeight * 0.52;
+
+      // 1. Parisian Marble Kitchen Background
+      const counterGrad = povCtx.createLinearGradient(0, 0, 0, povHeight);
+      counterGrad.addColorStop(0, '#2d142b');
+      counterGrad.addColorStop(0.35, '#fff9fb');
+      counterGrad.addColorStop(1, '#f7eef2');
+      povCtx.fillStyle = counterGrad;
+      povCtx.fillRect(0, 0, povWidth, povHeight);
+
+      // 2. Fine Curved Porcelain Plate with Double Champagne Gold Rim
+      povCtx.save();
+      // Drop Shadow
+      povCtx.fillStyle = 'rgba(0,0,0,0.18)';
+      povCtx.beginPath();
+      povCtx.ellipse(cx, cy + 30, 245, 145, 0, 0, Math.PI * 2);
+      povCtx.fill();
+
+      // White Porcelain Dish Outer Body
+      const plateGrad = povCtx.createLinearGradient(cx - 240, cy, cx + 240, cy);
+      plateGrad.addColorStop(0, '#ffffff');
+      plateGrad.addColorStop(0.5, '#fefbfd');
+      plateGrad.addColorStop(1, '#f8eff4');
+      povCtx.fillStyle = plateGrad;
+      povCtx.beginPath();
+      povCtx.ellipse(cx, cy, 240, 140, 0, 0, Math.PI * 2);
+      povCtx.fill();
+
+      // Double Champagne Gold Outer Rims
+      povCtx.strokeStyle = '#f59e0b';
+      povCtx.lineWidth = 4.5;
+      povCtx.stroke();
+
+      povCtx.strokeStyle = 'rgba(251, 191, 36, 0.6)';
+      povCtx.lineWidth = 1.5;
+      povCtx.beginPath();
+      povCtx.ellipse(cx, cy, 226, 130, 0, 0, Math.PI * 2);
+      povCtx.stroke();
+
+      // Inner Concave Dish Depression
+      povCtx.fillStyle = '#fdfafc';
+      povCtx.beginPath();
+      povCtx.ellipse(cx, cy + 5, 185, 105, 0, 0, Math.PI * 2);
+      povCtx.fill();
+      povCtx.restore();
+
+      // 3. Base Cooked Dish Mounded on Plate (Fried Rice / Noodles / Tacos)
+      povCtx.save();
+      const r = GameController.activeRecipe;
+      if (r.dishType === 'rice') {
+        drawGourmetFriedRice(cx, cy);
+      } else if (r.dishType === 'noodle_bowl' || r.dishType === 'pasta') {
+        drawGourmetNoodles(cx, cy);
+      } else if (r.dishType === 'taco') {
+        drawGourmetTacos(cx, cy);
+      } else {
+        drawGourmetCrêpe(cx, cy);
+      }
+      povCtx.restore();
+
+      // 4. Render Placed Garnishes
+      placedGarnishes.forEach(g => {
+        drawGarnishIllustration(g.x, g.y, g.type);
+      });
+
+      // 5. Plating Tweezers / Hand Following Cursor
+      drawPlatingChefTweezers(mousePos.x, mousePos.y);
+    }
+
+    function drawGourmetFriedRice(cx, cy) {
+      povCtx.save();
+      // Dome of golden brown rice
+      const gGrad = povCtx.createRadialGradient(cx, cy, 20, cx, cy, 110);
+      gGrad.addColorStop(0, '#b45309');
+      gGrad.addColorStop(0.7, '#92400e');
+      gGrad.addColorStop(1, '#78350f');
+      povCtx.fillStyle = gGrad;
+      povCtx.beginPath();
+      povCtx.ellipse(cx, cy, 120, 75, 0, 0, Math.PI * 2);
+      povCtx.fill();
+
+      // Rice grains & scallions texture
+      povCtx.fillStyle = '#fef08a';
+      for (let i = 0; i < 22; i++) {
+        const rx = cx + (Math.sin(i * 3.7) * 90);
+        const ry = cy + (Math.cos(i * 2.3) * 50);
+        povCtx.fillRect(rx, ry, 6, 3);
+      }
+      povCtx.fillStyle = '#22c55e';
+      for (let i = 0; i < 16; i++) {
+        const rx = cx + (Math.sin(i * 5.2) * 85);
+        const ry = cy + (Math.cos(i * 4.1) * 45);
+        povCtx.fillRect(rx, ry, 5, 5);
+      }
+      povCtx.restore();
+    }
+
+    function drawGourmetNoodles(cx, cy) {
+      povCtx.save();
+      povCtx.strokeStyle = '#fef08a';
+      povCtx.lineWidth = 4.5;
+      for (let i = 0; i < 12; i++) {
+        povCtx.beginPath();
+        povCtx.ellipse(cx + (i % 3 - 1) * 18, cy + (i % 4 - 2) * 12, 65 + i * 4, 38 + i * 2, (i * 0.3), 0, Math.PI * 2);
+        povCtx.stroke();
+      }
+      // Savory Broth Glossy Sheen
+      povCtx.fillStyle = 'rgba(217, 119, 6, 0.4)';
+      povCtx.beginPath();
+      povCtx.ellipse(cx, cy, 100, 58, 0, 0, Math.PI * 2);
+      povCtx.fill();
+      povCtx.restore();
+    }
+
+    function drawGourmetTacos(cx, cy) {
+      povCtx.save();
+      // Crispy U-shaped golden shell
+      povCtx.fillStyle = '#f59e0b';
+      povCtx.beginPath();
+      povCtx.ellipse(cx, cy, 110, 55, 0, 0, Math.PI);
+      povCtx.fill();
+      // Filling
+      povCtx.fillStyle = '#7f1d1d';
+      povCtx.fillRect(cx - 85, cy - 15, 170, 25);
+      povCtx.restore();
+    }
+
+    function drawGourmetCrêpe(cx, cy) {
+      povCtx.save();
+      // Golden Crêpe triangle fold
+      povCtx.fillStyle = '#fef08a';
+      povCtx.beginPath();
+      povCtx.moveTo(cx - 90, cy + 40);
+      povCtx.lineTo(cx + 90, cy + 40);
+      povCtx.lineTo(cx, cy - 50);
+      povCtx.closePath();
+      povCtx.fill();
+      // Caramel Sauce drizzle
+      povCtx.strokeStyle = '#b45309';
+      povCtx.lineWidth = 3.5;
+      povCtx.beginPath();
+      povCtx.moveTo(cx - 60, cy + 20);
+      povCtx.bezierCurveTo(cx - 20, cy - 30, cx + 20, cy + 30, cx + 60, cy - 20);
+      povCtx.stroke();
+      povCtx.restore();
+    }
+
+    // -------------------------------------------------------------
+    // REALISTIC GARNISH ILLUSTRATIONS (SUNNY EGG, AJITAMA, HERBS)
+    // -------------------------------------------------------------
+    function drawGarnishIllustration(gx, gy, type) {
+      povCtx.save();
+      povCtx.translate(gx, gy);
+
+      if (type === 'fried_egg') {
+        // Translucent crispy egg white
+        povCtx.fillStyle = '#ffffff';
+        povCtx.strokeStyle = 'rgba(217, 119, 6, 0.45)';
+        povCtx.lineWidth = 1.5;
+        povCtx.beginPath();
+        povCtx.ellipse(0, 0, 38, 26, 0.2, 0, Math.PI * 2);
+        povCtx.fill();
+        povCtx.stroke();
+
+        // Runny glossy liquid yolk dome
+        const yGrad = povCtx.createRadialGradient(-3, -3, 2, 0, 0, 16);
+        yGrad.addColorStop(0, '#fbbf24');
+        yGrad.addColorStop(0.6, '#f59e0b');
+        yGrad.addColorStop(1, '#ea580c');
+        povCtx.fillStyle = yGrad;
+        povCtx.beginPath();
+        povCtx.arc(0, 0, 14, 0, Math.PI * 2);
+        povCtx.fill();
+
+        // Glaze Specular Dot
+        povCtx.fillStyle = '#ffffff';
+        povCtx.beginPath();
+        povCtx.arc(-4, -4, 3, 0, Math.PI * 2);
+        povCtx.fill();
+
+      } else if (type === 'ramen_egg') {
+        // Half soft-boiled Ajitsuke Tamago
+        povCtx.fillStyle = '#fef9c3';
+        povCtx.beginPath();
+        povCtx.ellipse(0, 0, 26, 18, 0, 0, Math.PI * 2);
+        povCtx.fill();
+
+        const yGrad = povCtx.createRadialGradient(0, 0, 2, 0, 0, 12);
+        yGrad.addColorStop(0, '#f97316');
+        yGrad.addColorStop(1, '#c2410c');
+        povCtx.fillStyle = yGrad;
+        povCtx.beginPath();
+        povCtx.ellipse(0, 0, 13, 10, 0, 0, Math.PI * 2);
+        povCtx.fill();
+
+      } else if (type === 'nori_sheet') {
+        // Dark green crispy nori sheet
+        povCtx.fillStyle = '#0f172a';
+        povCtx.fillRect(-22, -14, 44, 28);
+
+      } else if (type === 'narutomaki') {
+        // White disc with pink spiral
+        povCtx.fillStyle = '#ffffff';
+        povCtx.beginPath();
+        povCtx.arc(0, 0, 16, 0, Math.PI * 2);
+        povCtx.fill();
+        povCtx.strokeStyle = '#ec4899';
+        povCtx.lineWidth = 3;
+        povCtx.beginPath();
+        povCtx.arc(0, 0, 8, 0, Math.PI * 1.5);
+        povCtx.stroke();
+
+      } else if (type === 'cracker') {
+        // Crispy puffy prawn cracker
+        povCtx.fillStyle = '#fde68a';
+        povCtx.beginPath();
+        povCtx.ellipse(0, 0, 32, 18, -0.2, 0, Math.PI * 2);
+        povCtx.fill();
+
+      } else {
+        // Fresh green organic herb sprig (Basil / Parsley / Mint)
+        povCtx.fillStyle = '#16a34a';
+        povCtx.beginPath();
+        povCtx.ellipse(-6, -4, 12, 7, 0.4, 0, Math.PI * 2);
+        povCtx.ellipse(6, 4, 12, 7, -0.4, 0, Math.PI * 2);
+        povCtx.fill();
+        povCtx.strokeStyle = '#14532d';
+        povCtx.lineWidth = 1;
+        povCtx.stroke();
+      }
+      povCtx.restore();
+    }
+
+    function drawPlatingChefTweezers(tx, ty) {
+      povCtx.save();
+      // Arm sleeve from bottom right
+      const armGrad = povCtx.createLinearGradient(120, 180, 0, 0);
+      armGrad.addColorStop(0, '#fdf2f8');
+      armGrad.addColorStop(1, '#ffffff');
+      povCtx.fillStyle = armGrad;
+      povCtx.beginPath();
+      povCtx.moveTo(povWidth - tx, povHeight - ty);
+      povCtx.lineTo(60, 80);
+      povCtx.lineTo(10, 40);
+      povCtx.lineTo(povWidth - tx - 50, povHeight - ty);
+      povCtx.closePath();
+      povCtx.fill();
+
+      // Hand Holding Fine Tweezers
+      povCtx.translate(tx, ty);
+      povCtx.fillStyle = '#fce7f3';
+      povCtx.beginPath();
+      povCtx.ellipse(15, 20, 16, 12, 0.2, 0, Math.PI * 2);
+      povCtx.fill();
+
+      // Rose Gold Culinary Plating Tweezers
+      povCtx.strokeStyle = '#e0a899';
+      povCtx.lineWidth = 3.5;
+      povCtx.beginPath();
+      povCtx.moveTo(15, 20);
+      povCtx.lineTo(-12, -40);
+      povCtx.lineTo(-20, -10);
+      povCtx.stroke();
+      povCtx.restore();
+    }
+
+    // -------------------------------------------------------------
+    // UTILITY VECTOR DRAWING HELPERS
+    // -------------------------------------------------------------
+    function roundRect(ctx, x, y, width, height, radius, fill, stroke) {
+      ctx.beginPath();
+      ctx.moveTo(x + radius, y);
+      ctx.lineTo(x + width - radius, y);
+      ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+      ctx.lineTo(x + width, y + height - radius);
+      ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+      ctx.lineTo(x + radius, y + height);
+      ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+      ctx.lineTo(x, y + radius);
+      ctx.quadraticCurveTo(x, y, x + radius, y);
+      ctx.closePath();
+      if (fill) ctx.fill();
+      if (stroke) ctx.stroke();
+    }
+
+    function drawCuteBow(x, y, size, color) {
+      povCtx.save();
+      povCtx.fillStyle = color;
+      povCtx.beginPath();
+      // Left loop
+      povCtx.ellipse(x - size * 0.7, y, size * 0.7, size * 0.45, -0.2, 0, Math.PI * 2);
+      // Right loop
+      povCtx.ellipse(x + size * 0.7, y, size * 0.7, size * 0.45, 0.2, 0, Math.PI * 2);
+      povCtx.fill();
+      // Center knot
+      povCtx.fillStyle = '#fbcfe8';
+      povCtx.beginPath();
+      povCtx.arc(x, y, size * 0.35, 0, Math.PI * 2);
+      povCtx.fill();
+      povCtx.restore();
+    }
+
+    function lerpColor(a, b, amount) {
+      return a; // Canvas handles basic color fallback
+    }
+
+    // -------------------------------------------------------------
+    // MAIN 2D POV RENDER LOOP (60 FPS)
+    // -------------------------------------------------------------
+    function renderPovLoop() {
+      if (!isPovActive) return;
+      requestAnimationFrame(renderPovLoop);
+
+      povCtx.clearRect(0, 0, povWidth, povHeight);
+
+      // Render Stage Specific Workstation
+      if (GameController.currentStage === 1) {
+        drawCuttingBoardStation();
+      } else if (GameController.currentStage === 2) {
+        drawWokSauteStation();
+      } else if (GameController.currentStage === 3) {
+        drawPlatingStation();
+      }
+
+      // Update Knife Chop Animation
+      if (knifeChopT > 0) {
+        knifeChopT -= 0.12;
+        if (knifeChopT < 0) knifeChopT = 0;
+      }
+
+      // Update Spatula Stir Angle
+      if (GameController.currentStage === 2) {
+        spatulaStirAngle += 0.045 * heatRate;
+      }
+
+      // Update Pan Shake Toss Amplitude
+      if (panShakeAmp > 0) {
+        panShakeAmp -= 0.04;
+        if (panShakeAmp < 0) panShakeAmp = 0;
+      }
+
+      // Rhythm Needle Runner (Babak 1)
+      if (GameController.isCooking && GameController.currentStage === 1) {
+        timingSine += 0.052;
+        const pos = 50 + Math.sin(timingSine) * 45;
+        const runner = document.getElementById('rhythmRunnerLine');
+        if (runner) runner.style.left = pos + '%';
+      }
+    }
+  </script>
+
+  <!-- ============================================================== -->
+  <!-- SCRIPT 5: GAME ENGINE & COMPETITION SYSTEM                     -->
+  <!-- ============================================================== -->
+  <script>
+    const GameController = {
+      chefName: 'Chef Roselle',
+      chefAvatar: '👩‍🍳',
+      gameMode: 'battle', // 'battle' | 'solo'
+      selectedFilter: 'all',
+      activeRecipe: RECIPES_CATALOG[0],
+      activeRival: RIVAL_OPPONENTS[0],
+      isCooking: false,
+      currentStage: 1,
+      totalScore: 0,
+      comboMultiplier: 1.0,
+      scoreChop: 0,
+      scoreCook: 0,
+      scorePlate: 0,
+      chopsDone: 0,
+      stirsDone: 0,
+      timeLeft: 55,
+      timerMax: 55,
+      rivalProgress: 0,
+      playerProgress: 0,
+      rivalScore: 0,
+      tickTimer: null
+    };
+
+    let selectedGarnishIndex = 0;
+    let totalPlacedGarnishes = 0;
+
+    // Transition from 2D Menu to Illustrated HD POV Kitchen
+    function launchCookingTransition() {
+      const nameInput = document.getElementById('inputChefName').value.trim();
+      if (nameInput) GameController.chefName = nameInput;
+
+      GameController.activeRival = RIVAL_OPPONENTS[Math.floor(Math.random() * RIVAL_OPPONENTS.length)];
+
+      const curtain = document.getElementById('curtainTransition');
+      curtain.classList.add('active');
+
+      setTimeout(() => {
+        initPovEngine();
+
+        document.getElementById('screenOpening2D').classList.add('fade-out');
+
+        document.getElementById('hudInGameContainer').style.display = 'flex';
+        document.getElementById('hudActiveDishName').textContent = GameController.activeRecipe.name;
+        document.getElementById('hudActiveIcon').textContent = GameController.activeRecipe.icon;
+        document.getElementById('hudActiveFlag').textContent = GameController.activeRecipe.countryFlag;
+
+        // Friendly Duel Header
+        const rivalHdr = document.getElementById('hudRivalBattleHeader');
+        if (GameController.gameMode === 'battle') {
+          rivalHdr.style.display = 'block';
+          document.getElementById('hudBattlePlayerName').textContent = `${GameController.chefName}`;
+          document.getElementById('hudBattleRivalName').textContent = GameController.activeRival.name;
+          document.getElementById('hudBattleRivalAv').textContent = GameController.activeRival.avatar;
+          document.getElementById('hudBattleRivalSpeaker').textContent = GameController.activeRival.name.toUpperCase() + ':';
+          document.getElementById('hudBattleRivalSpeech').textContent = GameController.activeRival.quotes[0];
+        } else {
+          rivalHdr.style.display = 'none';
+        }
+
+        GameController.isCooking = true;
+        GameController.totalScore = 0;
+        GameController.scoreChop = 0;
+        GameController.scoreCook = 0;
+        GameController.scorePlate = 0;
+        GameController.chopsDone = 0;
+        GameController.stirsDone = 0;
+        GameController.playerProgress = 0;
+        GameController.rivalProgress = 0;
+        activeSlices = [];
+        placedGarnishes = [];
+        totalPlacedGarnishes = 0;
+        selectedGarnishIndex = 0;
+        updateScoreDisplay();
+
+        advanceToStage(1);
+
+        curtain.classList.remove('active');
+      }, 450);
+    }
+
+    // Advance Stage (1: Chop, 2: Saute, 3: Plating)
+    function advanceToStage(stageNum) {
+      GameController.currentStage = stageNum;
+      GameController.timeLeft = 55;
+      GameController.timerMax = 55;
+
+      document.getElementById('panelStage1Chop').style.display = 'none';
+      document.getElementById('panelStage2Saute').style.display = 'none';
+      document.getElementById('panelStage3Plating').style.display = 'none';
+
+      const badge = document.getElementById('hudActiveStageBadge');
+
+      if (stageNum === 1) {
+        badge.textContent = 'BABAK 1: PEMOTONGAN BAHAN PRESISI';
+        badge.style.background = 'linear-gradient(135deg, #f472b6, #db2777)';
+        document.getElementById('panelStage1Chop').style.display = 'block';
+      } else if (stageNum === 2) {
+        badge.textContent = 'BABAK 2: TUMISAN & AROMA SAUTÉING';
+        badge.style.background = 'linear-gradient(135deg, #e0a899, #db2777)';
+        document.getElementById('panelStage2Saute').style.display = 'flex';
+        audioSynth.setSizzleVolume(0.25, heatRate);
+      } else if (stageNum === 3) {
+        audioSynth.setSizzleVolume(0);
+        badge.textContent = 'BABAK 3: PENATAAN & GARNISH MEWAH';
+        badge.style.background = 'linear-gradient(135deg, #34d399, #f59e0b)';
+        document.getElementById('panelStage3Plating').style.display = 'flex';
+        renderGarnishButtonsRow();
+      }
+
+      clearInterval(GameController.tickTimer);
+      GameController.tickTimer = setInterval(onGameTick, 100);
+    }
+
+    function renderGarnishButtonsRow() {
+      const container = document.getElementById('garnishButtonsHolder');
+      container.innerHTML = '';
+      GameController.activeRecipe.garnishes.forEach((g, idx) => {
+        const btn = document.createElement('button');
+        const isSelected = (idx === selectedGarnishIndex);
+        const isPlaced = (idx < selectedGarnishIndex);
+
+        btn.style.padding = '6px 14px';
+        btn.style.borderRadius = '12px';
+        btn.style.border = isSelected ? '2px solid #f472b6' : '1px solid rgba(244, 114, 182, 0.3)';
+        btn.style.background = isSelected ? 'rgba(244, 114, 182, 0.3)' : (isPlaced ? 'rgba(255,255,255,0.05)' : 'rgba(46, 20, 42, 0.85)');
+        btn.style.color = isPlaced ? '#9ca3af' : '#fff';
+        btn.style.fontWeight = '700';
+        btn.style.fontSize = '0.78rem';
+        btn.style.cursor = isPlaced ? 'default' : 'pointer';
+        btn.innerHTML = `${g.icon} ${g.name} ${isPlaced ? '✓' : ''}`;
+
+        btn.onclick = () => {
+          if (!isPlaced) {
+            selectedGarnishIndex = idx;
+            renderGarnishButtonsRow();
+          }
+        };
+        container.appendChild(btn);
+      });
+      document.getElementById('hudPlatedCount').textContent = `Garnish: ${totalPlacedGarnishes} / ${GameController.activeRecipe.garnishes.length}`;
+    }
+
+    // BABAK 1: Knife Swing Rhythm Action
+    function triggerKnifeChopAction() {
+      if (knifeChopT > 0) return;
+      knifeChopT = 1.0;
+
+      const runner = document.getElementById('rhythmRunnerLine');
+      let isCrisp = false;
+      if (runner) {
+        const leftPercent = parseFloat(runner.style.left || '0');
+        if (leftPercent >= 38 && leftPercent <= 62) isCrisp = true;
+      }
+
+      audioSynth.playKnifeChop(isCrisp);
+
+      GameController.chopsDone++;
+      const req = GameController.activeRecipe.chopsNeeded;
+      document.getElementById('hudChopPiecesCount').textContent = `Potongan: ${GameController.chopsDone} / ${req}`;
+
+      // Spawn Realistic Slices with Physics Scatter
+      const cx = povWidth * 0.5;
+      const cy = povHeight * 0.55;
+      activeSlices.push({
+        x: cx + 45 + (Math.random() - 0.5) * 80,
+        y: cy + 10 + (Math.random() - 0.5) * 50,
+        rot: (Math.random() - 0.5) * 0.8
+      });
+
+      if (isCrisp) {
+        GameController.comboMultiplier = Math.min(3.0, +(GameController.comboMultiplier + 0.2).toFixed(1));
+        const pts = Math.floor(65 * GameController.comboMultiplier);
+        GameController.scoreChop += pts;
+        GameController.totalScore += pts;
+        showCenterStamp("PARFAIT! ✨", "#f472b6");
+        spawnFloatingToast(`+${pts} pts!`, "#f472b6");
+      } else {
+        GameController.comboMultiplier = 1.0;
+        const pts = 25;
+        GameController.scoreChop += pts;
+        GameController.totalScore += pts;
+        spawnFloatingToast("+25 pts", "#fbbf24");
+      }
+
+      document.getElementById('hudComboMultiplier').textContent = `x${GameController.comboMultiplier.toFixed(1)}`;
+      updateScoreDisplay();
+
+      if (GameController.chopsDone >= req) {
+        showCenterStamp("POTONGAN ANGGUN! 🌸", "#f472b6");
+        setTimeout(() => advanceToStage(2), 700);
+      }
+    }
+
+    // BABAK 2: Sautéing Pan Stirring Motion
+    function onUserStirWokMotion(mag) {
+      if (mag < 2) return;
+
+      const inc = 0.35 * heatRate;
+      GameController.stirsDone += inc;
+      const pts = Math.floor(3 * heatRate);
+      GameController.scoreCook += pts;
+      GameController.totalScore += pts;
+      updateScoreDisplay();
+
+      audioSynth.setSizzleVolume(0.8, heatRate);
+      if (Math.random() < 0.2) audioSynth.playMetallicClink();
+
+      const req = GameController.activeRecipe.cookStirsNeeded;
+      const pct = Math.min(100, Math.floor((GameController.stirsDone / req) * 100));
+      document.getElementById('hudCookBarFill').style.width = pct + '%';
+      
+      let donenessText = `${pct}% (Aroma Semerbak)`;
+      if (pct > 75) donenessText = `${pct}% (Matang Keemasan! ✨)`;
+      document.getElementById('hudCookPercentage').textContent = donenessText;
+
+      if (GameController.stirsDone >= req) {
+        audioSynth.setSizzleVolume(0.1);
+        showCenterStamp("AROMA MEMIKAT! 🌸", "#f472b6");
+        spawnFloatingToast("CHEF'S KISS! 🧁", "#fbbf24");
+        setTimeout(() => advanceToStage(3), 800);
+      }
+    }
+
+    // BABAK 3: Plating Placement Click
+    function handlePlatingClick(e) {
+      const gList = GameController.activeRecipe.garnishes;
+      if (selectedGarnishIndex < gList.length) {
+        const gData = gList[selectedGarnishIndex];
+        placedGarnishes.push({
+          x: e.clientX,
+          y: e.clientY,
+          type: gData.type
+        });
+
+        audioSynth.playGarnishPop();
+        totalPlacedGarnishes++;
+
+        const pts = 160;
+        GameController.scorePlate += pts;
+        GameController.totalScore += pts;
+        updateScoreDisplay();
+        spawnFloatingToast(`+${pts} PLATING! 🌟`, "#f472b6");
+
+        document.getElementById('hudPlatedCount').textContent = `Garnish: ${totalPlacedGarnishes} / ${gList.length}`;
+        selectedGarnishIndex++;
+        renderGarnishButtonsRow();
+
+        if (totalPlacedGarnishes >= gList.length) {
+          showCenterStamp("SAJIAN MASTERPIECE! ✨", "#f472b6");
+          setTimeout(finishGameCookingSession, 1200);
+        }
+      }
+    }
+
+    // Extended Game Tick Timer & Real-Time Duel Progression
+    function onGameTick() {
+      if (!GameController.isCooking) return;
+
+      GameController.timeLeft -= 0.1;
+      if (GameController.timeLeft <= 0) {
+        GameController.timeLeft = 0;
+        clearInterval(GameController.tickTimer);
+        if (GameController.currentStage < 3) {
+          advanceToStage(GameController.currentStage + 1);
+        } else {
+          finishGameCookingSession();
+        }
+      }
+
+      const pct = (GameController.timeLeft / GameController.timerMax) * 100;
+      document.getElementById('hudTimerFill').style.width = pct + '%';
+      document.getElementById('hudTimerValue').textContent = Math.ceil(GameController.timeLeft) + 's';
+
+      let pProg = 0;
+      if (GameController.currentStage === 1) {
+        pProg = (GameController.chopsDone / GameController.activeRecipe.chopsNeeded) * 33;
+      } else if (GameController.currentStage === 2) {
+        pProg = 33 + (GameController.stirsDone / GameController.activeRecipe.cookStirsNeeded) * 33;
+      } else if (GameController.currentStage === 3) {
+        pProg = 66 + (totalPlacedGarnishes / GameController.activeRecipe.garnishes.length) * 34;
+      }
+      GameController.playerProgress = Math.min(100, Math.floor(pProg));
+
+      if (GameController.gameMode === 'battle') {
+        GameController.rivalProgress = Math.min(100, GameController.rivalProgress + 0.18 + Math.random() * 0.08);
+        GameController.rivalScore = Math.floor(GameController.rivalProgress * 28.5);
+
+        document.getElementById('hudBattlePlayerFill').style.width = GameController.playerProgress + '%';
+        document.getElementById('hudBattlePlayerPct').textContent = GameController.playerProgress + '%';
+
+        document.getElementById('hudBattleRivalFill').style.width = Math.floor(GameController.rivalProgress) + '%';
+        document.getElementById('hudBattleRivalPct').textContent = Math.floor(GameController.rivalProgress) + '%';
+
+        const diff = GameController.playerProgress - Math.floor(GameController.rivalProgress);
+        const gapEl = document.getElementById('hudBattleGapDiff');
+        if (diff > 4) {
+          gapEl.textContent = `+${diff}% MEMIMPIN!`;
+          gapEl.style.color = '#34d399';
+        } else if (diff < -4) {
+          gapEl.textContent = `${diff}% TERTINGGAL!`;
+          gapEl.style.color = '#f472b6';
+        } else {
+          gapEl.textContent = 'SEIMBANG KETAT!';
+          gapEl.style.color = '#fbbf24';
+        }
+
+        if (GameController.rivalProgress > 70 && Math.random() < 0.04) {
+          document.getElementById('hudBattleRivalSpeech').textContent = GameController.activeRival.quotes[2];
+        } else if (GameController.rivalProgress > 35 && Math.random() < 0.03) {
+          document.getElementById('hudBattleRivalSpeech').textContent = GameController.activeRival.quotes[1];
+        }
+      }
+    }
+
+    function updateScoreDisplay() {
+      document.getElementById('hudLiveScore').textContent = GameController.totalScore.toLocaleString();
+    }
+
+    function showCenterStamp(text, color) {
+      const banner = document.getElementById('hudCenterStamp');
+      const textEl = document.getElementById('hudCenterStampText');
+      textEl.textContent = text;
+      textEl.style.background = color;
+      banner.style.opacity = '1';
+      setTimeout(() => banner.style.opacity = '0', 700);
+    }
+
+    function spawnFloatingToast(text, color) {
+      const toast = document.createElement('div');
+      toast.className = 'floating-toast-item';
+      toast.textContent = text;
+      toast.style.color = color;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 750);
+    }
+
+    // FINAL EVALUATION SCREEN
+    function finishGameCookingSession() {
+      GameController.isCooking = false;
+      clearInterval(GameController.tickTimer);
+      audioSynth.setSizzleVolume(0);
+      audioSynth.playApplauseAndFanfare();
+
+      const timeBonus = Math.floor(GameController.timeLeft * 22);
+      GameController.totalScore += timeBonus;
+      const total = GameController.totalScore;
+
+      const isBattle = GameController.gameMode === 'battle';
+      const playerWon = isBattle ? (total >= GameController.rivalScore) : true;
+
+      let rank = 'B';
+      if (total >= 2800) {
+        rank = 'S';
+      } else if (total >= 2100) {
+        rank = 'A';
+      }
+
+      let title = playerWon ? 'Mahakarya Kuliner Sempurna! ✨' : 'Duel Anggun Penuh Harmoni! 🌸';
+      let subtitle = `${GameController.chefAvatar} ${GameController.chefName} berhasil menyajikan ${GameController.activeRecipe.name} (Bonus Waktu: +${timeBonus} pts).`;
+
+      let rivalReactionQuote = '';
+      if (isBattle) {
+        rivalReactionQuote = playerWon ? GameController.activeRival.commentWin : GameController.activeRival.commentLose;
+      }
+
+      document.getElementById('evalRankStamp').textContent = rank;
+      document.getElementById('evalTitle').textContent = title;
+      document.getElementById('evalSubtitle').textContent = subtitle;
+      document.getElementById('evalChopScore').textContent = `${GameController.scoreChop} pts`;
+      document.getElementById('evalCookScore').textContent = `${GameController.scoreCook} pts`;
+      document.getElementById('evalPlateScore').textContent = `${GameController.scorePlate + timeBonus} pts`;
+
+      const rivalBox = document.getElementById('evalRivalBox');
+      if (isBattle) {
+        rivalBox.style.display = 'block';
+        document.getElementById('evalBattleVerdict').textContent = playerWon ? 'UNGGUL TELAK! 👑' : 'DUEL SEIMBANG 🌸';
+        document.getElementById('evalPlayerAv').textContent = GameController.chefAvatar;
+        document.getElementById('evalPlayerName').textContent = `${GameController.chefName}`;
+        document.getElementById('evalPlayerPts').textContent = `${total.toLocaleString()} pts ${playerWon ? '👑 MENANG' : ''}`;
+
+        document.getElementById('evalRivalAv').textContent = GameController.activeRival.avatar;
+        document.getElementById('evalRivalName').textContent = GameController.activeRival.name;
+        document.getElementById('evalRivalPts').textContent = `${GameController.rivalScore.toLocaleString()} pts ${!playerWon ? '👑 MENANG' : ''}`;
+
+        document.getElementById('evalSpeakerIcon').textContent = GameController.activeRival.avatar;
+        document.getElementById('evalSpeakerLabel').textContent = `REAKSI REKAN: ${GameController.activeRival.name.toUpperCase()}`;
+        document.getElementById('evalCommentText').textContent = rivalReactionQuote;
+      } else {
+        rivalBox.style.display = 'none';
+        document.getElementById('evalSpeakerIcon').textContent = '👑';
+        document.getElementById('evalSpeakerLabel').textContent = 'MADAME CAMILLE • KEPALA KURATOR KULINER';
+        document.getElementById('evalCommentText').textContent = `"Penyajian yang begitu anggun dan berkelas, ${GameController.chefName}! Sensasi rasa dan audio memasakmu berpadu harmonis."`;
+      }
+
+      document.getElementById('hudInGameContainer').style.display = 'none';
+      document.getElementById('screenEvaluation').style.display = 'flex';
+    }
+  </script>
+
+  <!-- ============================================================== -->
+  <!-- SCRIPT 6: DOM LISTENERS & 2D MENU BINDINGS                     -->
+  <!-- ============================================================== -->
+  <script>
+    function setupDOMEvents() {
+      // 1. Avatar selector
+      document.querySelectorAll('.avatar-opt-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.avatar-opt-btn').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          GameController.chefAvatar = btn.getAttribute('data-avatar');
+        });
+      });
+
+      // 2. Mode Toggle
+      const bBattle = document.getElementById('btnModeBattle');
+      const bSolo = document.getElementById('btnModeSolo');
+      bBattle.addEventListener('click', () => {
+        GameController.gameMode = 'battle';
+        bBattle.classList.add('selected');
+        bSolo.classList.remove('selected');
+      });
+      bSolo.addEventListener('click', () => {
+        GameController.gameMode = 'solo';
+        bSolo.classList.add('selected');
+        bBattle.classList.remove('selected');
+      });
+
+      // 3. Render Passport Tabs & Recipes
+      renderPassportTabs();
+      renderPassportRecipeCards();
+
+      // 4. Start Cooking Trigger (Opens 2D Illustrated POV Kitchen)
+      document.getElementById('btnStartCookingAction').addEventListener('click', () => {
+        launchCookingTransition();
+      });
+
+      // 5. Knife Chop Click & Spacebar
+      document.getElementById('btnTriggerChop').addEventListener('click', () => {
+        if (GameController.isCooking && GameController.currentStage === 1) triggerKnifeChopAction();
+      });
+
+      window.addEventListener('keydown', (e) => {
+        if (e.code === 'Space' && GameController.isCooking && GameController.currentStage === 1) {
+          triggerKnifeChopAction();
+        }
+      });
+
+      // 6. Heat Level Toggles
+      document.querySelectorAll('.heat-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.heat-btn').forEach(b => {
+            b.classList.remove('active');
+            b.style.background = 'rgba(255,255,255,0.05)';
+            b.style.borderColor = 'rgba(255,255,255,0.2)';
+            b.style.color = 'var(--text-muted)';
+          });
+          btn.classList.add('active');
+          const h = btn.getAttribute('data-heat');
+          if (h === 'low') {
+            btn.style.background = '#e0a899';
+            btn.style.borderColor = '#fbcfe8';
+            btn.style.color = '#fff';
+            heatRate = 0.65;
+          } else if (h === 'mid') {
+            btn.style.background = '#db2777';
+            btn.style.borderColor = '#f472b6';
+            btn.style.color = '#fff';
+            heatRate = 1.0;
+          } else if (h === 'high') {
+            btn.style.background = '#e11d48';
+            btn.style.borderColor = '#fda4af';
+            btn.style.color = '#fff';
+            heatRate = 1.6;
+          }
+          audioSynth.setSizzleVolume(0.55, heatRate);
+        });
+      });
+
+      // 7. Pan Shake Toss
+      document.getElementById('btnShakePanToss').addEventListener('click', () => {
+        panShakeAmp = 1.0;
+        audioSynth.playMetallicClink();
+        onUserStirWokMotion(14);
+        spawnFloatingToast("PAN TOSS! 🥘", "#f472b6");
+      });
+
+      // 8. Exit
+      document.getElementById('btnReturnToMenu').addEventListener('click', () => {
+        GameController.isCooking = false;
+        clearInterval(GameController.tickTimer);
+        audioSynth.setSizzleVolume(0);
+        document.getElementById('hudInGameContainer').style.display = 'none';
+        document.getElementById('screenOpening2D').classList.remove('fade-out');
+      });
+
+      // 9. Replay Same Dish
+      document.getElementById('btnReplaySameDish').addEventListener('click', () => {
+        document.getElementById('screenEvaluation').style.display = 'none';
+        launchCookingTransition();
+      });
+
+      // 10. Back to 2D
+      document.getElementById('btnBackToMenu2D').addEventListener('click', () => {
+        document.getElementById('screenEvaluation').style.display = 'none';
+        document.getElementById('screenOpening2D').classList.remove('fade-out');
+      });
+    }
+
+    function renderPassportTabs() {
+      const container = document.getElementById('countryTabsNav');
+      container.innerHTML = '';
+      COUNTRY_TABS_LIST.forEach(c => {
+        const tab = document.createElement('div');
+        tab.className = `country-pill ${c.id === GameController.selectedFilter ? 'active' : ''}`;
+        tab.innerHTML = `<span>${c.flag}</span> <span>${c.name}</span>`;
+        tab.onclick = () => {
+          audioSynth.playGarnishPop();
+          GameController.selectedFilter = c.id;
+          renderPassportTabs();
+          renderPassportRecipeCards();
+        };
+        container.appendChild(tab);
+      });
+    }
+
+    function renderPassportRecipeCards() {
+      const container = document.getElementById('recipeDeckContainer');
+      container.innerHTML = '';
+
+      const dishes = GameController.selectedFilter === 'all'
+        ? RECIPES_CATALOG
+        : RECIPES_CATALOG.filter(r => r.countryId === GameController.selectedFilter);
+
+      dishes.forEach(dish => {
+        const card = document.createElement('div');
+        const isSelected = dish.id === GameController.activeRecipe.id;
+        card.className = `recipe-entry-card ${isSelected ? 'selected' : ''}`;
+        card.innerHTML = `
+          <div class="recipe-entry-icon">${dish.icon}</div>
+          <div style="flex: 1;">
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="font-size: 0.78rem;">${dish.countryFlag}</span>
+              <span style="font-size: 0.7rem; font-weight: 800; color: var(--blush-soft); text-transform: uppercase;">${dish.countryName}</span>
+              <span style="font-size: 0.65rem; color: var(--text-muted); margin-left: auto;">${dish.difficulty}</span>
+            </div>
+            <div style="font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 700; color: #fff;">${dish.name}</div>
+            <div style="font-size: 0.7rem; color: var(--text-muted); line-height: 1.22; margin-top: 2px;">${dish.tagline}</div>
+          </div>
+        `;
+        card.onclick = () => {
+          audioSynth.playGarnishPop();
+          GameController.activeRecipe = dish;
+          renderPassportRecipeCards();
+        };
+        container.appendChild(card);
+      });
+    }
+
+    window.addEventListener('load', () => {
+      setupDOMEvents();
+    });
+  </script>
+</body>
+</html>
